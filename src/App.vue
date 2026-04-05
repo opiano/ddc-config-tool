@@ -1,10 +1,16 @@
 <script setup>
+import { useConfigStore } from './store/configStore'
 import SidebarTree from './components/SidebarTree.vue'
 import ConfigTable from './components/ConfigTable.vue'
+import LoginForm from './components/LoginForm.vue'
+
+const store = useConfigStore()
 </script>
 
 <template>
-  <div class="app-layout">
+  <LoginForm v-if="!store.isLoggedIn" />
+
+  <div class="app-layout" v-else>
     <div class="sidebar-wrapper">
       <SidebarTree />
     </div>

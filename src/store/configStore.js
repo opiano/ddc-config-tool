@@ -3,6 +3,9 @@ import { v4 as uuidv4 } from 'uuid';
 
 export const useConfigStore = defineStore('config', {
   state: () => ({
+    // 인증 상태
+    isLoggedIn: false,
+    
     // 트리 데이터 (PrimeVue Tree 포맷형)
     treeData: [
       {
@@ -46,6 +49,20 @@ export const useConfigStore = defineStore('config', {
   },
   
   actions: {
+    //===============================
+    // 인증 관리
+    //===============================
+    login(username, password) {
+      if (username === 'admin' && password === 'ddc1234') {
+        this.isLoggedIn = true;
+        return true;
+      }
+      return false;
+    },
+    logout() {
+      this.isLoggedIn = false;
+    },
+
     setSelectedNodeKey(key) {
       this.selectedNodeKey = key;
     },
