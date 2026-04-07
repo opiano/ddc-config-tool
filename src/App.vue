@@ -29,9 +29,9 @@ const store = useConfigStore()
 }
 
 .sidebar-wrapper {
-  width: 300px;
-  min-width: 260px;
-  max-width: 350px;
+  width: 252px;
+  min-width: 216px;
+  max-width: 300px;
   border-right: 1px solid var(--border-color);
   background: var(--surface-color);
   box-shadow: var(--shadow-sm);
