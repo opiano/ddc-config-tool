@@ -72,25 +72,46 @@ export const useConfigStore = defineStore('config', {
     //===============================
     addNode(parentKey, label) {
       let added = false;
+      const groupOrder = ['AI', 'AO', 'AV', 'BI', 'BO', 'BV', 'MSV', 'CAL', 'SCH', 'NC', 'TLOG', 'TOT', 'EGC', 'CGC'];
 
       const traverseAndAdd = (nodes, currentDepth) => {
         for (const node of nodes) {
           if (node.key === parentKey) {
-            // max depth: 5
-            const nextDepth = currentDepth + 1;
-            if (nextDepth > 5) {
-              alert('더 이상 하위 레벨을 추가할 수 없습니다 (최대 4레벨 하위)');
-              return true; // stop search
-            }
             if (!node.children) node.children = [];
+            
+            const nextType = node.data.type === 'project' ? 'device' : 'group';
+            
+            if (nextType === 'group' && node.children.some(child => child.label === label)) {
+              alert(`해당 그룹(${label})은(는) 이미 추가되어 있습니다.`);
+              return true;
+            }
+
+            if (nextType === 'device' && node.children.some(child => child.label === label)) {
+              alert(`해당 디바이스('${label}')는 이미 존재합니다.`);
+              return true;
+            }
+
             const newNodeId = uuidv4();
+            const icon = nextType === 'device' ? 'pi pi-fw pi-server' : 'pi pi-fw pi-list';
+
             node.children.push({
               key: newNodeId,
               label: label,
-              data: { type: 'device', depth: nextDepth },
+              data: { type: nextType, depth: currentDepth + 1 },
               children: [],
-              icon: 'pi pi-fw pi-server'
+              icon: icon
             });
+            
+            if (nextType === 'group') {
+              node.children.sort((a, b) => {
+                let indexA = groupOrder.indexOf(a.label);
+                let indexB = groupOrder.indexOf(b.label);
+                if (indexA === -1) indexA = 999;
+                if (indexB === -1) indexB = 999;
+                return indexA - indexB;
+              });
+            }
+
             // 노드를 추가할 때 빈 레코드 배열 마련
             this.recordsData[newNodeId] = [];
             added = true;
@@ -185,7 +206,7 @@ export const useConfigStore = defineStore('config', {
       const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportObj, null, 2));
       const downloadAnchorNode = document.createElement('a');
       downloadAnchorNode.setAttribute("href", dataStr);
-      downloadAnchorNode.setAttribute("download", "ddc_config_data.json");
+      downloadAnchorNode.setAttribute("download", "project.json");
       document.body.appendChild(downloadAnchorNode); // required for firefox
       downloadAnchorNode.click();
       downloadAnchorNode.remove();

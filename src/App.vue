@@ -21,35 +21,27 @@ const store = useConfigStore()
 </template>
 
 <style>
-/* Reset and Base Styles */
-body, html {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  font-family: var(--font-family, Inter, "Helvetica Neue", sans-serif);
-}
-
-#app {
-  width: 100%;
-  height: 100vh;
-}
-
 .app-layout {
   display: flex;
   width: 100%;
   height: 100%;
+  background: var(--bg-color);
 }
 
 .sidebar-wrapper {
   width: 300px;
-  min-width: 250px;
-  max-width: 400px;
-  border-right: 1px solid var(--p-surface-200);
+  min-width: 260px;
+  max-width: 350px;
+  border-right: 1px solid var(--border-color);
+  background: var(--surface-color);
+  box-shadow: var(--shadow-sm);
+  z-index: 10;
 }
 
 .main-wrapper {
   flex: 1;
   min-width: 0; /* for flex shrinking if needed */
+  display: flex;
+  flex-direction: column;
 }
 </style>
