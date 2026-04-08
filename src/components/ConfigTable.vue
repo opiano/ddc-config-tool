@@ -25,6 +25,8 @@
       </div>
 
       <DeviceConfig v-if="selectedNode.data.type === 'device'" :nodeKey="selectedNode.key" :key="'device-' + selectedNode.key + '-' + componentKey" />
+      
+      <NcConfig v-else-if="selectedNode.data.type === 'group' && selectedNode.label === 'NC'" :nodeKey="selectedNode.key" :key="'nc-' + selectedNode.key + '-' + componentKey" />
 
       <!-- PrimeVue DataTable with Row Editing -->
       <DataTable v-else
@@ -44,7 +46,12 @@
 
         <!-- 편집 및 삭제 (최좌측 고정, 간격 최소화) -->
         <Column :rowEditor="true" style="width: 65px; min-width: 65px" bodyStyle="text-align:right; padding-right: 0.1rem;" headerStyle="min-width: 65px" frozen></Column>
-        <Column style="width: 40px; min-width: 40px" bodyStyle="text-align:left; padding-left: 0.1rem;" headerStyle="min-width: 40px" frozen>
+        <Column style="width: 35px; min-width: 35px" bodyStyle="text-align:center; padding: 0.1rem;" headerStyle="min-width: 35px" frozen>
+          <template #body="{ data }">
+            <Button icon="pi pi-copy" text rounded severity="help" @click="copyRow(data)" title="항목 복사" style="width: 2rem; height: 2rem; padding: 0;" />
+          </template>
+        </Column>
+        <Column style="width: 35px; min-width: 35px" bodyStyle="text-align:left; padding-left: 0;" headerStyle="min-width: 35px" frozen>
           <template #body="{ data }">
             <Button icon="pi pi-trash" text rounded severity="danger" @click="deleteRow(data.id)" title="데이터 삭제" style="width: 2rem; height: 2rem; padding: 0;" />
           </template>
@@ -93,6 +100,7 @@ import InputText from 'primevue/inputtext'
 import InputNumber from 'primevue/inputnumber'
 import InputMask from 'primevue/inputmask'
 import DeviceConfig from './DeviceConfig.vue'
+import NcConfig from './NcConfig.vue'
 import Dialog from 'primevue/dialog'
 
 const store = useConfigStore()
@@ -100,18 +108,19 @@ const selectedNode = computed(() => store.selectedNode)
 const tableData = computed(() => store.currentRecords)
 
 const groupColumnsMap = {
-  AI: ['inst', 'port', 'module', 'ch', 'name', 'desc', 'thid', 'units', 'maxVal', 'minVal', 'gain', 'bias', 'nc', 'e.detect', 'almEnable', 'almHL', 'almLL', 'deadband', 'timedelay', 'cov.inc', 'pv.inc', 'cov.en', 'tlog.en'],
-  AO: ['inst', 'port', 'module', 'ch', 'name', 'desc', 'thid', 'units', 'maxVal', 'minVal', 'initVal', 'nc', 'e.detect', 'almEnable', 'almHL', 'almLL', 'deadband', 'timedelay', 'cov.inc', 'pv.inc', 'cov.en', 'tlog.en'],
-  AV: ['inst', 'port', 'module', 'ch', 'name', 'desc', 'thid', 'units', 'initVal', 'nc', 'e.detect', 'almEnable', 'almHL', 'almLL', 'deadband', 'timedelay', 'cov.inc', 'pv.inc', 'cov.en', 'tlog.en'],
-  BI: ['inst', 'port', 'module', 'ch', 'name', 'desc', 'thid', 'onTxt', 'offTxt', 'polarity', 'nc', 'e.detect', 'almEnable', 'almVal', 'timedelay', 'cov.en', 'tlog.en'],
-  BO: ['inst', 'port', 'module', 'ch', 'name', 'desc', 'thid', 'onTxt', 'offTxt', 'polarity', 'initVal', 'outMode', 'interval', 'nc', 'e.detect', 'almEnable', 'timedelay', 'fbDevInst', 'fbObject', 'cov.en', 'tlog.en'],
-  BV: ['inst', 'port', 'module', 'ch', 'name', 'desc', 'thid', 'onTxt', 'offTxt', 'initVal', 'nc', 'e.detect', 'almEnable', 'almVal', 'timedelay', 'cov.en', 'tlog.en'],
-  MSV: ['inst', 'port', 'module', 'ch', 'name', 'desc', 'thid', 'initVal', 'nrState', 'st1Txt', 'st2Txt', 'st3Txt', 'st4Txt', 'st5Txt', 'st6Txt', 'st7Txt', 'st8Txt', 'st9Txt', 'st10Txt', 'nc', 'e.detect', 'almEnable', 'timedelay', 'almVals', 'faultVals', 'cov.en', 'tlog.en'],
+  AI: ['inst', 'port', 'mod', 'ch', 'name', 'desc', 'thid', 'units', 'maxVal', 'minVal', 'gain', 'bias', 'nc', 'e.detect', 'almEnable', 'almHL', 'almLL', 'deadband', 'timedelay', 'cov.inc', 'pv.inc', 'cov.en', 'tlog.en'],
+  AO: ['inst', 'port', 'mod', 'ch', 'name', 'desc', 'thid', 'units', 'maxVal', 'minVal', 'initVal', 'nc', 'e.detect', 'almEnable', 'almHL', 'almLL', 'deadband', 'timedelay', 'cov.inc', 'pv.inc', 'cov.en', 'tlog.en'],
+  AV: ['inst', 'port', 'mod', 'ch', 'name', 'desc', 'thid', 'units', 'initVal', 'nc', 'e.detect', 'almEnable', 'almHL', 'almLL', 'deadband', 'timedelay', 'cov.inc', 'pv.inc', 'cov.en', 'tlog.en'],
+  BI: ['inst', 'port', 'mod', 'ch', 'name', 'desc', 'thid', 'onTxt', 'offTxt', 'polarity', 'nc', 'e.detect', 'almEnable', 'almVal', 'timedelay', 'cov.en', 'tlog.en'],
+  BO: ['inst', 'port', 'mod', 'ch', 'name', 'desc', 'thid', 'onTxt', 'offTxt', 'polarity', 'initVal', 'outMode', 'interval', 'nc', 'e.detect', 'almEnable', 'timedelay', 'fbDevInst', 'fbObject', 'cov.en', 'tlog.en'],
+  BV: ['inst', 'port', 'mod', 'ch', 'name', 'desc', 'thid', 'onTxt', 'offTxt', 'initVal', 'nc', 'e.detect', 'almEnable', 'almVal', 'timedelay', 'cov.en', 'tlog.en'],
+  MSV: ['inst', 'port', 'mod', 'ch', 'name', 'desc', 'thid', 'initVal', 'nrState', 'st1Txt', 'st2Txt', 'st3Txt', 'st4Txt', 'st5Txt', 'st6Txt', 'st7Txt', 'st8Txt', 'st9Txt', 'st10Txt', 'nc', 'e.detect', 'almEnable', 'timedelay', 'almVals', 'faultVals', 'cov.en', 'tlog.en'],
+  NC: ['inst', 'name', 'desc', 'priority_off', 'priority_fault', 'priority_norm', 'ack_off', 'ack_fault', 'ack_norm', 'd1_mon', 'd1_tue', 'd1_wed', 'd1_thu', 'd1_fri', 'd1_sat', 'd1_sun', 'd1_time_start', 'd1_time_end', 'd1_recipient', 'd1_proc_id', 'd1_confirmed', 'd1_trans_off', 'd1_trans_fault', 'd1_trans_norm', 'd2_mon', 'd2_tue', 'd2_wed', 'd2_thu', 'd2_fri', 'd2_sat', 'd2_sun', 'd2_time_start', 'd2_time_end', 'd2_recipient', 'd2_proc_id', 'd2_confirmed', 'd2_trans_off', 'd2_trans_fault', 'd2_trans_norm'],
   TLOG: ['inst', 'name', 'desc', 'startDate', 'startTime', 'endDate', 'endTime', 'enable', 'logDevInst', 'logObject', 'logInterval', 'stopWhenFull', 'nc', 'e.detect', 'almEnable', 'threshold'],
-  TOT: ['inst', 'port', 'module', 'ch', 'name', 'desc', 'units', 'Ref_DevInst', 'Ref_Object', 'nc', 'e.detect', 'almEnable', 'almHL', 'gain', 'totOpt', 'reset_choice', 'reset-date', 'reset-time'],
+  TOT: ['inst', 'port', 'mod', 'ch', 'name', 'desc', 'units', 'Ref_DevInst', 'Ref_Object', 'nc', 'e.detect', 'almEnable', 'almHL', 'gain', 'totOpt', 'reset_choice', 'reset-date', 'reset-time'],
   CAL: ['inst', 'name', 'desc', 'date1', 'date2', 'date3', 'date4', 'date5', 'date-range1', 'date-range2', 'date-range3', 'date-range4', 'date-range5', 'weekNday1', 'weekNday2', 'weekNday3', 'weekNday4', 'weekNday5'],
-  CGC: ['inst', 'port', 'module', 'ch', 'name', 'desc', 'OP', 'cond1-obj', 'comp1', 'cond1-value', 'cond2-obj', 'comp2', 'cond2-value', 'pri_for_writing', 'action1-obj', 'action1-val', 'action2-obj', 'action2-val', 'action3-obj', 'action3-val', 'action4-obj', 'action4-val'],
-  EGC: ['inst', 'port', 'module', 'ch', 'name', 'desc', 'Master_Object', 'priority-for-writing', 'slave-object-list'],
+  CGC: ['inst', 'port', 'mod', 'ch', 'name', 'desc', 'OP', 'cond1-obj', 'comp1', 'cond1-value', 'cond2-obj', 'comp2', 'cond2-value', 'pri_for_writing', 'action1-obj', 'action1-val', 'action2-obj', 'action2-val', 'action3-obj', 'action3-val', 'action4-obj', 'action4-val'],
+  EGC: ['inst', 'port', 'mod', 'ch', 'name', 'desc', 'Master_Object', 'priority-for-writing', 'slave-object-list'],
   SCH: ['inst', 'name', 'desc', 'startDate', 'endDate', 'objType', 'def-value', 'object-list', 'priority', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun', 'ex1.period', 'ex1.tv', 'ex1.pri', 'ex2.period', 'ex2.tv', 'ex2.pri', 'ex3.period', 'ex3.tv', 'ex3.pri', 'ex4.period', 'ex4.tv', 'ex4.pri', 'ex5.period', 'ex5.tv', 'ex5.pri', 'ex6.period', 'ex6.tv', 'ex6.pri', 'ex7.period', 'ex7.tv', 'ex7.pri', 'ex8.period', 'ex8.tv', 'ex8.pri', 'ex9.period', 'ex9.tv', 'ex9.pri', 'ex10.period', 'ex10.tv', 'ex10.pri']
 }
 
@@ -155,6 +164,8 @@ const getColumnStyle = (field) => {
   const smallFields = ['nc', 'e.detect', 'almEnable', 'deadband', 'cov.inc', 'pv.inc', 'cov.en', 'tlog.en'];
   if (smallFields.includes(field)) return 'width: 65px; min-width: 65px; max-width: 65px; overflow: hidden;';
   
+  if (field === 'port' || field === 'mod' || field === 'ch') return 'width: 65px; min-width: 65px; max-width: 65px; overflow: hidden;';
+  
   if (field === 'nrState') return 'width: 65px; min-width: 65px; max-width: 65px; overflow: hidden;';
   if (field === 'timedelay') return 'width: 75px; min-width: 75px; max-width: 75px; overflow: hidden;';
 
@@ -183,7 +194,7 @@ const sortTableData = () => {
       const aPort = getVal(a.port), bPort = getVal(b.port)
       if (aPort !== bPort) return aPort - bPort
       
-      const aMod = getVal(a.module), bMod = getVal(b.module)
+      const aMod = getVal(a.mod), bMod = getVal(b.mod)
       if (aMod !== bMod) return aMod - bMod
       
       const aCh = getVal(a.ch), bCh = getVal(b.ch)
@@ -199,7 +210,7 @@ const validateRecord = (recordToSave) => {
 
   const newInst = recordToSave.inst;
   const nPort = recordToSave.port;
-  const nMod = recordToSave.module;
+  const nMod = recordToSave.mod;
   const nCh = recordToSave.ch;
 
   const valid = (val) => val !== undefined && val !== null && val !== '';
@@ -220,14 +231,14 @@ const validateRecord = (recordToSave) => {
       break;
     }
 
-    // inst, port, module, ch 조합 검증 (오브젝트 그룹별 적용)
-    if (compositeValid && valid(r.inst) && valid(r.port) && valid(r.module) && valid(r.ch)) {
+    // inst, port, mod, ch 조합 검증 (오브젝트 그룹별 적용)
+    if (compositeValid && valid(r.inst) && valid(r.port) && valid(r.mod) && valid(r.ch)) {
       if (String(r.inst) === String(newInst) && 
           String(r.port) === String(nPort) &&
-          String(r.module) === String(nMod) &&
+          String(r.mod) === String(nMod) &&
           String(r.ch) === String(nCh)) {
         isCompositeDup = true;
-        errorMsg = `[중복 오류] 입력하신 inst, port, module, ch 조합이 현재 그룹 내에 이미 존재합니다.`;
+        errorMsg = `[중복 오류] 입력하신 inst, port, mod, ch 조합이 현재 그룹 내에 이미 존재합니다.`;
         break;
       }
     }
@@ -269,6 +280,24 @@ const onRowEditSave = (event) => {
   }
 
   store.updateRecord(selectedNode.value.key, newData)
+  sortTableData()
+}
+
+const copyRow = (rowData) => {
+  if (!selectedNode.value) return
+  
+  // Copy all attributes except the existing internal ID
+  const { id, ...cloneData } = rowData
+
+  store.addRecord(selectedNode.value.key, cloneData)
+  
+  // Pluck the successfully mounted row natively extracting the freshly generated UUID instance
+  const records = store.recordsData[selectedNode.value.key]
+  const newRef = records[records.length - 1]
+  
+  // Directly bind onto PrimeVue's reactive edit bounds switching state dynamically
+  editingRows.value.push(newRef)
+  
   sortTableData()
 }
 
@@ -358,6 +387,103 @@ const parseDeviceTextFormat = (text) => {
   return data;
 };
 
+const getNcTextContent = (records) => {
+  let output = '#Notf object config\n'
+  records.forEach((r, idx) => {
+    // Only output if inst exists and it has valid fields
+    if (!r.inst) return
+    output += `INST=${r.inst}\n`
+    output += `NAME=${r.name || ''}\n`
+    output += `DESC=${r.desc || ''}\n`
+    output += `PRI=${r.priority_off || 0},${r.priority_fault || 0},${r.priority_norm || 0}\n`
+    output += `ACK_REQ=${r.ack_off ? 1 : 0},${r.ack_fault ? 1 : 0},${r.ack_norm ? 1 : 0}\n\n`
+    
+    output += `#Valid Days: from monday, 1 or 0\n`
+    output += `1_VALID_DAYS=${r.d1_mon?1:0},${r.d1_tue?1:0},${r.d1_wed?1:0},${r.d1_thu?1:0},${r.d1_fri?1:0},${r.d1_sat?1:0},${r.d1_sun?1:0}\n`
+    output += `1_FROM_TIME=${r.d1_time_start || '00:00:00'}\n`
+    output += `1_TO_TIME=${r.d1_time_end || '23:59:59'}\n`
+    output += `# devid or net/mac\n`
+    output += `1_RECIPIENT=${r.d1_recipient || ''}\n`
+    output += `1_PROC_ID=${r.d1_proc_id || 0}\n`
+    output += `1_CONF=${r.d1_confirmed ? 1 : 0}\n`
+    output += `1_TRANS=${r.d1_trans_off?1:0},${r.d1_trans_fault?1:0},${r.d1_trans_norm?1:0}\n\n`
+    
+    if (idx === 0) output += `# 2nd Destination\n`
+    output += `2_VALID_DAYS=${r.d2_mon?1:0},${r.d2_tue?1:0},${r.d2_wed?1:0},${r.d2_thu?1:0},${r.d2_fri?1:0},${r.d2_sat?1:0},${r.d2_sun?1:0}\n`
+    output += `2_FROM_TIME=${r.d2_time_start || '00:00:00'}\n`
+    output += `2_TO_TIME=${r.d2_time_end || '23:59:59'}\n`
+    output += `2_RECIPIENT=${r.d2_recipient || ''}\n`
+    output += `2_PROC_ID=${r.d2_proc_id || 0}\n`
+    output += `2_CONF=${r.d2_confirmed ? 1 : 0}\n`
+    output += `2_TRANS=${r.d2_trans_off?1:0},${r.d2_trans_fault?1:0},${r.d2_trans_norm?1:0}\n`
+    output += `\n` // separator between NCs
+  })
+  return output.trim()
+}
+
+const parseNcTextFormat = (text) => {
+  const lines = text.split('\n')
+  const results = []
+  let currentNc = null
+
+  lines.forEach(line => {
+    line = line.trim()
+    if (!line || line.startsWith('#')) return
+
+    const eqIdx = line.indexOf('=')
+    if (eqIdx === -1) return
+    const key = line.substring(0, eqIdx).trim()
+    const val = line.substring(eqIdx + 1).trim()
+
+    if (key === 'INST') {
+      if (currentNc) results.push(currentNc)
+      currentNc = { id: crypto.randomUUID(), inst: parseInt(val) }
+    } else if (currentNc) {
+      if (key === 'NAME') currentNc.name = val
+      else if (key === 'DESC') currentNc.desc = val
+      else if (key === 'PRI') {
+        const parts = val.split(',')
+        currentNc.priority_off = parseFloat(parts[0]) || 0
+        currentNc.priority_fault = parseFloat(parts[1]) || 0
+        currentNc.priority_norm = parseFloat(parts[2]) || 0
+      } else if (key === 'ACK_REQ') {
+        const parts = val.split(',')
+        currentNc.ack_off = parts[0] === '1'
+        currentNc.ack_fault = parts[1] === '1'
+        currentNc.ack_norm = parts[2] === '1'
+      } else if (key === '1_VALID_DAYS') {
+        const p = val.split(',')
+        currentNc.d1_mon=p[0]==='1'; currentNc.d1_tue=p[1]==='1'; currentNc.d1_wed=p[2]==='1';
+        currentNc.d1_thu=p[3]==='1'; currentNc.d1_fri=p[4]==='1'; currentNc.d1_sat=p[5]==='1'; currentNc.d1_sun=p[6]==='1';
+      } else if (key === '1_FROM_TIME') currentNc.d1_time_start = val
+      else if (key === '1_TO_TIME') currentNc.d1_time_end = val
+      else if (key === '1_RECIPIENT') currentNc.d1_recipient = val
+      else if (key === '1_PROC_ID') currentNc.d1_proc_id = parseFloat(val) || 0
+      else if (key === '1_CONF') currentNc.d1_confirmed = (val === '1')
+      else if (key === '1_TRANS') {
+        const p = val.split(',')
+        currentNc.d1_trans_off=p[0]==='1'; currentNc.d1_trans_fault=p[1]==='1'; currentNc.d1_trans_norm=p[2]==='1';
+      } else if (key === '2_VALID_DAYS') {
+        const p = val.split(',')
+        currentNc.d2_mon=p[0]==='1'; currentNc.d2_tue=p[1]==='1'; currentNc.d2_wed=p[2]==='1';
+        currentNc.d2_thu=p[3]==='1'; currentNc.d2_fri=p[4]==='1'; currentNc.d2_sat=p[5]==='1'; currentNc.d2_sun=p[6]==='1';
+      } else if (key === '2_FROM_TIME') currentNc.d2_time_start = val
+      else if (key === '2_TO_TIME') currentNc.d2_time_end = val
+      else if (key === '2_RECIPIENT') currentNc.d2_recipient = val
+      else if (key === '2_PROC_ID') currentNc.d2_proc_id = parseFloat(val) || 0
+      else if (key === '2_CONF') currentNc.d2_confirmed = (val === '1')
+      else if (key === '2_TRANS') {
+        const p = val.split(',')
+        currentNc.d2_trans_off=p[0]==='1'; currentNc.d2_trans_fault=p[1]==='1'; currentNc.d2_trans_norm=p[2]==='1';
+      }
+    }
+  })
+  if (currentNc) results.push(currentNc)
+
+  // Maintain initial constraints ensuring empty initializations auto-boot safely
+  return results.length > 0 ? results : []
+};
+
 const parseGroupTextFormat = (text, groupLabel) => {
   const cols = groupColumnsMap[groupLabel];
   if (!cols) throw new Error('Unknown group type');
@@ -432,7 +558,11 @@ const handleFileUpload = (event) => {
           if (selectedNode.value.data.type === 'device') {
             contents = parseDeviceTextFormat(e.target.result)
           } else if (selectedNode.value.data.type === 'group') {
-            contents = parseGroupTextFormat(e.target.result, selectedNode.value.label)
+            if (selectedNode.value.label === 'NC') {
+              contents = parseNcTextFormat(e.target.result)
+            } else {
+              contents = parseGroupTextFormat(e.target.result, selectedNode.value.label)
+            }
           }
         } else {
           contents = JSON.parse(e.target.result)
@@ -534,6 +664,10 @@ const formattedMetaData = computed(() => {
   }
 
   if (selectedNode.value.data.type === 'group') {
+    if (selectedNode.value.label === 'NC') {
+      return getNcTextContent(data)
+    }
+    
     const cols = groupColumnsMap[selectedNode.value.label];
     if (!cols) return JSON.stringify(data, null, 2);
     
