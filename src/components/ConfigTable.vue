@@ -51,19 +51,19 @@
         </Column>
         
         <!-- 동적으로 넘어갈 컬럼 (향후 대응을 위해 Loop 가능하게 구성) -->
-        <Column v-for="col in columns" :key="col.field" :field="col.field" :header="col.header" :style="getColumnStyle(col.field)">
+        <Column v-for="col in columns" :key="col.field" :field="col.field" :header="col.header" :headerStyle="getColumnStyle(col.field)" :bodyStyle="getColumnStyle(col.field)">
           <template #editor="{ data, field }">
             <template v-if="field.toLowerCase().includes('date')">
-              <InputNumber v-model="data[field]" :useGrouping="false" placeholder="YYYYMMDD" style="width: 100%" />
+              <InputNumber v-model="data[field]" :useGrouping="false" placeholder="YYYYMMDD" style="width: 100%; min-width: 0;" :inputStyle="{ padding: '0.3rem 0.4rem', width: '100%', minWidth: '0', boxSizing: 'border-box' }" />
             </template>
             <template v-else-if="field === 'timedelay' || field === 'nrState'">
-              <InputNumber v-model="data[field]" :useGrouping="false" style="width: 100%" />
+              <InputNumber v-model="data[field]" :useGrouping="false" style="width: 100%; min-width: 0;" :inputStyle="{ padding: '0.3rem 0.4rem', width: '100%', minWidth: '0', boxSizing: 'border-box' }" />
             </template>
             <template v-else-if="field.toLowerCase().includes('time')">
-              <InputMask v-model="data[field]" mask="99:99" placeholder="HH:MM" style="width: 100%" />
+              <InputMask v-model="data[field]" mask="99:99" placeholder="HH:MM" style="width: 100%; min-width: 0; padding: 0.3rem 0.4rem; box-sizing: border-box;" />
             </template>
             <template v-else>
-              <InputText v-model="data[field]" :disabled="isStateTextDisabled(field, data)" style="width: 100%" />
+              <InputText v-model="data[field]" :disabled="isStateTextDisabled(field, data)" style="width: 100%; min-width: 0; padding: 0.3rem 0.4rem; box-sizing: border-box;" />
             </template>
           </template>
         </Column>
@@ -145,25 +145,26 @@ const isStateTextDisabled = (field, data) => {
 }
 
 const getColumnStyle = (field) => {
-  // String types defined by user
   const stringFields = ['name', 'desc', 'thid', 'onTxt', 'offTxt'];
   const isString = stringFields.includes(field) || (field.startsWith('st') && field.endsWith('Txt'));
 
   if (isString) {
-    if (field === 'desc') return 'width: 200px; min-width: 200px;';
-    return 'width: 140px; min-width: 140px;';
+    return 'width: 140px; min-width: 140px; max-width: 140px; overflow: hidden;';
   }
 
-  if (field === 'timedelay') return 'width: 55px; min-width: 55px;';
-  if (field === 'nrState') return 'width: 65px; min-width: 65px;';
+  const smallFields = ['nc', 'e.detect', 'almEnable', 'deadband', 'cov.inc', 'pv.inc', 'cov.en', 'tlog.en'];
+  if (smallFields.includes(field)) return 'width: 65px; min-width: 65px; max-width: 65px; overflow: hidden;';
+  
+  if (field === 'nrState') return 'width: 65px; min-width: 65px; max-width: 65px; overflow: hidden;';
+  if (field === 'timedelay') return 'width: 75px; min-width: 75px; max-width: 75px; overflow: hidden;';
 
   // Specific sizing for temporal types
-  if (field.toLowerCase().includes('date')) return 'width: 70px; min-width: 70px;';
-  if (field.toLowerCase().includes('time')) return 'width: 100px; min-width: 100px;';
+  if (field.toLowerCase().includes('date')) return 'width: 70px; min-width: 70px; max-width: 70px; overflow: hidden;';
+  if (field.toLowerCase().includes('time')) return 'width: 100px; min-width: 100px; max-width: 100px; overflow: hidden;';
 
   // For all other types, squeeze tight matching the header title width
   const calcWidth = Math.max(55, field.length * 8.5 + 32); 
-  return `width: ${calcWidth}px; min-width: ${calcWidth}px;`;
+  return `width: ${calcWidth}px; min-width: ${calcWidth}px; max-width: ${calcWidth}px; overflow: hidden;`;
 }
 
 const sortTableData = () => {
