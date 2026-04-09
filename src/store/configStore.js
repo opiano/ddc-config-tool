@@ -72,7 +72,7 @@ export const useConfigStore = defineStore('config', {
     //===============================
     addNode(parentKey, label) {
       let added = false;
-      const groupOrder = ['AI', 'AO', 'AV', 'BI', 'BO', 'BV', 'MSV', 'CAL', 'SCH', 'NC', 'TLOG', 'TOT', 'EGC', 'CGC'];
+      const groupOrder = ['AI', 'AO', 'AV', 'BI', 'BO', 'BV', 'MSV', 'CAL', 'SCH', 'NC', 'TLOG', 'TOT', 'CGC', 'EGC'];
 
       const traverseAndAdd = (nodes, currentDepth) => {
         for (const node of nodes) {
@@ -99,7 +99,8 @@ export const useConfigStore = defineStore('config', {
               label: label,
               data: { type: nextType, depth: currentDepth + 1 },
               children: [],
-              icon: icon
+              icon: icon,
+              styleClass: nextType === 'group' ? 'node-group-item' : ''
             });
             
             if (nextType === 'group') {

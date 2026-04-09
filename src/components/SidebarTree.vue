@@ -110,7 +110,7 @@ const newNodeName = ref('')
 const editNodeName = ref('')
 const targetNode = ref(null)
 
-const groupOptions = ref(['AI', 'AO', 'AV', 'BI', 'BO', 'BV', 'MSV', 'CAL', 'SCH', 'NC', 'TLOG', 'TOT', 'EGC', 'CGC'])
+const groupOptions = ref(['AI', 'AO', 'AV', 'BI', 'BO', 'BV', 'MSV', 'CAL', 'SCH', 'NC', 'TLOG', 'TOT', 'CGC', 'EGC'])
 const selectedGroup = ref(null)
 
 const groupPopover = ref(null)
@@ -290,5 +290,15 @@ const handleFileUpload = (event) => {
   color: white;
   box-shadow: var(--shadow-md);
   transform: translateY(-2px) scale(1.05);
+}
+
+/* Shrink group object text and icons */
+::v-deep(.node-group-item .p-treenode-icon) {
+  font-size: 0.85rem !important;
+  opacity: 0.8;
+}
+::v-deep(.node-group-item .node-label) {
+  font-size: 0.85rem !important;
+  font-weight: 500 !important;
 }
 </style>

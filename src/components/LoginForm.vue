@@ -11,11 +11,11 @@
         <div class="p-fluid">
           <div class="field mb-4">
             <label for="username" style="font-weight: bold; display: block; margin-bottom: 0.5rem;">아이디</label>
-            <InputText id="username" v-model="username" @keyup.enter="handleLogin" placeholder="아이디를 입력하세요" />
+            <InputText id="username" v-model="username" @keyup.enter="handleLogin" placeholder="아이디를 입력하세요" class="w-full" style="width: 100%; box-sizing: border-box;" />
           </div>
           <div class="field mb-4">
             <label for="password" style="font-weight: bold; display: block; margin-bottom: 0.5rem;">패스워드</label>
-            <Password id="password" v-model="password" :feedback="false" @keyup.enter="handleLogin" placeholder="패스워드를 입력하세요" toggleMask />
+            <Password id="password" v-model="password" :feedback="false" @keyup.enter="handleLogin" placeholder="패스워드를 입력하세요" class="w-full" style="width: 100%; box-sizing: border-box;" :inputStyle="{ width: '100%', boxSizing: 'border-box' }" />
           </div>
           <Message severity="error" v-if="loginError" :closable="false" class="mb-3">{{ loginError }}</Message>
         </div>
