@@ -90,6 +90,27 @@
             <template v-else-if="field === 'almEnable'">
               <InputText v-model="data[field]" style="width: 50%; max-width: 50%; min-width: 0; padding: 0.3rem 0.4rem; box-sizing: border-box;" @keydown="handleKeydown($event, field)" />
             </template>
+            <template v-else-if="field === 'cond1'">
+              <InputText v-model="data[field]" placeholder="AV-1,LE,7" style="width: 100%; max-width: 100%; min-width: 0; padding: 0.3rem 0.4rem; box-sizing: border-box;" @keydown="handleKeydown($event, field)" />
+            </template>
+            <template v-else-if="field === 'cond2'">
+              <InputText v-model="data[field]" placeholder="AV-2,GE,AV-3" style="width: 100%; max-width: 100%; min-width: 0; padding: 0.3rem 0.4rem; box-sizing: border-box;" @keydown="handleKeydown($event, field)" />
+            </template>
+            <template v-else-if="field === 'OP'">
+              <InputText v-model="data[field]" placeholder="and" style="width: 100%; max-width: 100%; min-width: 0; padding: 0.3rem 0.4rem; box-sizing: border-box;" @keydown="handleKeydown($event, field)" />
+            </template>
+            <template v-else-if="field === 'action1'">
+              <InputText v-model="data[field]" placeholder="AV-1,11" style="width: 100%; max-width: 100%; min-width: 0; padding: 0.3rem 0.4rem; box-sizing: border-box;" @keydown="handleKeydown($event, field)" />
+            </template>
+            <template v-else-if="field === 'action2'">
+              <InputText v-model="data[field]" placeholder="100-AV-10,20" style="width: 100%; max-width: 100%; min-width: 0; padding: 0.3rem 0.4rem; box-sizing: border-box;" @keydown="handleKeydown($event, field)" />
+            </template>
+            <template v-else-if="field === 'slave-object-list'">
+              <InputText v-model="data[field]" placeholder="AV-1,100-AV-10... max 10" style="width: 100%; max-width: 100%; min-width: 0; padding: 0.3rem 0.4rem; box-sizing: border-box;" @keydown="handleKeydown($event, field)" />
+            </template>
+            <template v-else-if="field === 'Master_Obj'">
+              <InputText v-model="data[field]" placeholder="AV-1" style="width: 100%; max-width: 100%; min-width: 0; padding: 0.3rem 0.4rem; box-sizing: border-box;" @keydown="handleKeydown($event, field)" />
+            </template>
             <template v-else>
               <InputText v-model="data[field]" :disabled="isStateTextDisabled(field, data)" style="width: 100%; max-width: 100%; min-width: 0; padding: 0.3rem 0.4rem; box-sizing: border-box;" @keydown="handleKeydown($event, field)" />
             </template>
@@ -199,7 +220,7 @@ const groupColumnsMap = {
   MSV: ['inst', 'port', 'mod', 'ch', 'name', 'desc', 'thid', 'initVal', 'nrState', 'st1Txt', 'st2Txt', 'st3Txt', 'st4Txt', 'st5Txt', 'st6Txt', 'st7Txt', 'st8Txt', 'st9Txt', 'st10Txt', 'nc', 'e.detect', 'almEnable', 'timedelay', 'almVals', 'faultVals', 'cov.en', 'tlog.en'],
   NC: ['inst', 'name', 'desc', 'priority_off', 'priority_fault', 'priority_norm', 'ack_off', 'ack_fault', 'ack_norm', 'd1_mon', 'd1_tue', 'd1_wed', 'd1_thu', 'd1_fri', 'd1_sat', 'd1_sun', 'd1_time_start', 'd1_time_end', 'd1_recipient', 'd1_proc_id', 'd1_confirmed', 'd1_trans_off', 'd1_trans_fault', 'd1_trans_norm', 'd2_mon', 'd2_tue', 'd2_wed', 'd2_thu', 'd2_fri', 'd2_sat', 'd2_sun', 'd2_time_start', 'd2_time_end', 'd2_recipient', 'd2_proc_id', 'd2_confirmed', 'd2_trans_off', 'd2_trans_fault', 'd2_trans_norm'],
   TLOG: ['inst', 'name', 'desc', 'startDate', 'startTime', 'endDate', 'endTime', 'enable', 'logDevInst', 'logObject', 'logInterval', 'stopWhenFull', 'nc', 'e.detect', 'almEnable', 'threshold'],
-  TOT: ['inst', 'ch', 'name', 'desc', 'units', 'Ref_DevInst', 'Ref_Object', 'nc', 'e.detect', 'almEnable', 'almHL', 'gain', 'totOpt', 'reset_choice', 'reset-date', 'reset-time'],
+  TOT: ['inst', 'name', 'desc', 'units', 'Ref_DevInst', 'Ref_Object', 'nc', 'e.detect', 'almEnable', 'almHL', 'gain', 'totOpt', 'reset_choice', 'reset-date', 'reset-time'],
   CAL: ['inst', 'name', 'desc', 'date1', 'date2', 'date3', 'date4', 'date5', 'date-range1', 'date-range2', 'date-range3', 'date-range4', 'date-range5', 'weekNday1', 'weekNday2', 'weekNday3', 'weekNday4', 'weekNday5'],
   CGC: ['inst', 'name', 'desc', 'OP', 'cond1', 'cond2', 'pri_for_wr', 'action1', 'action2', 'action3', 'action4'],
   EGC: ['inst', 'name', 'desc', 'Master_Obj', 'pri-for-wr', 'slave-object-list'],
