@@ -7,11 +7,11 @@
           <!-- Top Section -->
           <div class="field-row">
             <label>Name</label>
-            <InputText v-model="nc.name" placeholder="NC Name" class="w-full max-w-sm" />
+            <InputText v-model="nc.name" class="w-full max-w-sm" />
           </div>
           <div class="field-row">
             <label>Desc</label>
-            <InputText v-model="nc.desc" placeholder="Description" class="w-full max-w-sm" />
+            <InputText v-model="nc.desc" class="w-full max-w-sm" />
           </div>
           <div class="field-row mt-2">
             <label>Priority</label>
@@ -50,10 +50,10 @@
                 </div>
               </div>
               
-              <div class="field-row align-start">
+              <div class="field-row">
                 <label>Recipient</label>
                 <div>
-                  <InputText v-model="nc[`d${dIndex}_recipient`]" placeholder="123 OR 0,192.168.1.1:47808" class="w-full max-w-sm" />
+                  <InputText v-model="nc[`d${dIndex}_recipient`]" placeholder="123 or 0/192.168.1.100/47808" style="width: 16.6rem;" />
                 </div>
               </div>
               
@@ -174,12 +174,7 @@ const localData = computed(() => store.recordsData[props.nodeKey] || [])
   box-shadow: var(--shadow-sm);
 }
 
-/* Distinct placeholders style explicitly differentiating user entry */
-.nc-form ::placeholder {
-  color: var(--text-color-secondary) !important;
-  font-style: italic;
-  opacity: 0.6;
-}
+
 
 .field-row {
   display: flex;

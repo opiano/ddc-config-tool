@@ -67,7 +67,7 @@
             <span v-else>{{ col.header }}</span>
           </template>
           <template #body="{ data, field }">
-            <template v-if="field === 'weekly' || field === 'exception'">
+            <template v-if="['weekly', 'exception', 'date', 'date-range', 'weekNday'].includes(field)">
               <Button icon="pi pi-cog" label="설정" @click="openSchModal(field, data)" class="p-button-sm p-button-outlined" style="padding: 0.2rem 0.5rem;" />
             </template>
             <template v-else>
@@ -75,20 +75,23 @@
             </template>
           </template>
           <template #editor="{ data, field }">
-            <template v-if="field === 'weekly' || field === 'exception'">
+            <template v-if="['weekly', 'exception', 'date', 'date-range', 'weekNday'].includes(field)">
               <Button icon="pi pi-cog" label="설정" @click="openSchModal(field, data)" class="p-button-sm p-button-outlined" style="padding: 0.2rem 0.5rem;" />
             </template>
             <template v-else-if="field.toLowerCase().includes('date') && field !== 'reset-date' && !field.startsWith('date-range')">
-              <InputNumber v-model="data[field]" :useGrouping="false" placeholder="YYYYMMDD" style="width: 100%; min-width: 0;" :inputStyle="{ padding: '0.3rem 0.4rem', width: '100%', minWidth: '0', boxSizing: 'border-box' }" @keydown="handleKeydown($event, field)" />
+              <InputNumber v-model="data[field]" :useGrouping="false" placeholder="YYYYMMDD" style="width: 100%; max-width: 100%; min-width: 0;" :inputStyle="{ padding: '0.3rem 0.4rem', width: '100%', minWidth: '0', boxSizing: 'border-box' }" @keydown="handleKeydown($event, field)" />
             </template>
             <template v-else-if="field === 'timedelay' || field === 'nrState'">
-              <InputNumber v-model="data[field]" :useGrouping="false" style="width: 100%; min-width: 0;" :inputStyle="{ padding: '0.3rem 0.4rem', width: '100%', minWidth: '0', boxSizing: 'border-box' }" @keydown="handleKeydown($event, field)" />
+              <InputNumber v-model="data[field]" :useGrouping="false" style="width: 100%; max-width: 100%; min-width: 0;" :inputStyle="{ padding: '0.3rem 0.4rem', width: '100%', minWidth: '0', boxSizing: 'border-box' }" @keydown="handleKeydown($event, field)" />
             </template>
             <template v-else-if="field.toLowerCase().includes('time')">
-              <InputMask v-model="data[field]" mask="99:99" placeholder="HH:MM" style="width: 100%; min-width: 0; padding: 0.3rem 0.4rem; box-sizing: border-box;" @keydown="handleKeydown($event, field)" />
+              <InputMask v-model="data[field]" mask="99:99" placeholder="HH:MM" style="width: 100%; max-width: 100%; min-width: 0; padding: 0.3rem 0.4rem; box-sizing: border-box;" @keydown="handleKeydown($event, field)" />
+            </template>
+            <template v-else-if="field === 'almEnable'">
+              <InputText v-model="data[field]" style="width: 50%; max-width: 50%; min-width: 0; padding: 0.3rem 0.4rem; box-sizing: border-box;" @keydown="handleKeydown($event, field)" />
             </template>
             <template v-else>
-              <InputText v-model="data[field]" :disabled="isStateTextDisabled(field, data)" style="width: 100%; min-width: 0; padding: 0.3rem 0.4rem; box-sizing: border-box;" @keydown="handleKeydown($event, field)" />
+              <InputText v-model="data[field]" :disabled="isStateTextDisabled(field, data)" style="width: 100%; max-width: 100%; min-width: 0; padding: 0.3rem 0.4rem; box-sizing: border-box;" @keydown="handleKeydown($event, field)" />
             </template>
           </template>
         </Column>
@@ -147,6 +150,25 @@
       </template>
     </Dialog>
 
+    <!-- CAL 설정 다이얼로그 -->
+    <Dialog v-model:visible="showCalDialog" modal :header="(calContextType.toUpperCase()) + ' 설정'" :style="{ width: '30rem' }">
+      <div style="padding: 1rem 0;">
+        <DataTable :value="calEditForm" class="p-datatable-sm" responsiveLayout="scroll">
+          <Column field="index" header="No" style="width: 60px; text-align: center;"></Column>
+          <Column header="Value">
+            <template #body="{ data }">
+              <InputNumber v-if="calContextType === 'date'" v-model="data.val" :useGrouping="false" placeholder="YYYYMMDD" style="width: 100%;" :inputStyle="{ width: '100%', boxSizing: 'border-box' }" />
+              <InputText v-else v-model="data.val" style="width: 100%; box-sizing: border-box;" />
+            </template>
+          </Column>
+        </DataTable>
+      </div>
+      <template #footer>
+        <Button label="취소" icon="pi pi-times" text severity="secondary" @click="cancelCalData" />
+        <Button label="저장" icon="pi pi-check" severity="primary" @click="saveCalData" />
+      </template>
+    </Dialog>
+
   </div>
 </template>
 
@@ -177,18 +199,14 @@ const groupColumnsMap = {
   MSV: ['inst', 'port', 'mod', 'ch', 'name', 'desc', 'thid', 'initVal', 'nrState', 'st1Txt', 'st2Txt', 'st3Txt', 'st4Txt', 'st5Txt', 'st6Txt', 'st7Txt', 'st8Txt', 'st9Txt', 'st10Txt', 'nc', 'e.detect', 'almEnable', 'timedelay', 'almVals', 'faultVals', 'cov.en', 'tlog.en'],
   NC: ['inst', 'name', 'desc', 'priority_off', 'priority_fault', 'priority_norm', 'ack_off', 'ack_fault', 'ack_norm', 'd1_mon', 'd1_tue', 'd1_wed', 'd1_thu', 'd1_fri', 'd1_sat', 'd1_sun', 'd1_time_start', 'd1_time_end', 'd1_recipient', 'd1_proc_id', 'd1_confirmed', 'd1_trans_off', 'd1_trans_fault', 'd1_trans_norm', 'd2_mon', 'd2_tue', 'd2_wed', 'd2_thu', 'd2_fri', 'd2_sat', 'd2_sun', 'd2_time_start', 'd2_time_end', 'd2_recipient', 'd2_proc_id', 'd2_confirmed', 'd2_trans_off', 'd2_trans_fault', 'd2_trans_norm'],
   TLOG: ['inst', 'name', 'desc', 'startDate', 'startTime', 'endDate', 'endTime', 'enable', 'logDevInst', 'logObject', 'logInterval', 'stopWhenFull', 'nc', 'e.detect', 'almEnable', 'threshold'],
-  TOT: ['inst', 'port', 'mod', 'ch', 'name', 'desc', 'units', 'Ref_DevInst', 'Ref_Object', 'nc', 'e.detect', 'almEnable', 'almHL', 'gain', 'totOpt', 'reset_choice', 'reset-date', 'reset-time'],
+  TOT: ['inst', 'ch', 'name', 'desc', 'units', 'Ref_DevInst', 'Ref_Object', 'nc', 'e.detect', 'almEnable', 'almHL', 'gain', 'totOpt', 'reset_choice', 'reset-date', 'reset-time'],
   CAL: ['inst', 'name', 'desc', 'date1', 'date2', 'date3', 'date4', 'date5', 'date-range1', 'date-range2', 'date-range3', 'date-range4', 'date-range5', 'weekNday1', 'weekNday2', 'weekNday3', 'weekNday4', 'weekNday5'],
-  CGC: ['inst', 'name', 'desc', 'OP', 'cond1-obj', 'comp1', 'cond1-value', 'cond2-obj', 'comp2', 'cond2-value', 'pri_for_wr', 'action1-obj', 'action1-val', 'action2-obj', 'action2-val', 'action3-obj', 'action3-val', 'action4-obj', 'action4-val'],
+  CGC: ['inst', 'name', 'desc', 'OP', 'cond1', 'cond2', 'pri_for_wr', 'action1', 'action2', 'action3', 'action4'],
   EGC: ['inst', 'name', 'desc', 'Master_Obj', 'pri-for-wr', 'slave-object-list'],
   SCH: ['inst', 'name', 'desc', 'startDate', 'endDate', 'objType', 'def-value', 'object-list', 'priority', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun', 'ex1.period', 'ex1.tv', 'ex1.pri', 'ex2.period', 'ex2.tv', 'ex2.pri', 'ex3.period', 'ex3.tv', 'ex3.pri', 'ex4.period', 'ex4.tv', 'ex4.pri', 'ex5.period', 'ex5.tv', 'ex5.pri', 'ex6.period', 'ex6.tv', 'ex6.pri', 'ex7.period', 'ex7.tv', 'ex7.pri', 'ex8.period', 'ex8.tv', 'ex8.pri', 'ex9.period', 'ex9.tv', 'ex9.pri', 'ex10.period', 'ex10.tv', 'ex10.pri']
 }
 
-const columnDescriptionsMap = {
-  AI: {
-    units: "아날로그 입력 값의 물리적 단위 (예: °C, %, Pa 등)"
-  }
-}
+const columnDescriptionsMap = {}
 
 const getColumnDescription = (groupLabel, field) => {
   if (columnDescriptionsMap[groupLabel] && columnDescriptionsMap[groupLabel][field]) {
@@ -212,6 +230,17 @@ const columns = computed(() => {
         ...baseCols.map(f => ({ field: f, header: f })),
         { field: 'weekly', header: 'weekly' },
         { field: 'exception', header: 'exception' }
+      ]
+    }
+    if (groupLabel === 'CAL') {
+      const baseCols = groupColumnsMap[groupLabel].filter(f => 
+        !f.startsWith('date') && !f.startsWith('weekNday')
+      )
+      return [
+        ...baseCols.map(f => ({ field: f, header: f })),
+        { field: 'date', header: 'date' },
+        { field: 'date-range', header: 'date-range' },
+        { field: 'weekNday', header: 'weekNday' }
       ]
     }
     return groupColumnsMap[groupLabel].map(f => ({ field: f, header: f }))
@@ -313,21 +342,24 @@ const getColumnStyle = (field) => {
 
   // Specific sizing for SCH types
   if (field === 'object-list') return 'width: 250px; min-width: 250px; max-width: 250px; overflow: hidden;';
-  if (field === 'objType') return 'width: 85px; min-width: 85px; max-width: 85px; overflow: hidden;';
-  if (field === 'def-value') return 'width: 100px; min-width: 100px; max-width: 100px; overflow: hidden;';
+  if (field === 'objType') return 'width: 65px; min-width: 65px; max-width: 65px; overflow: hidden;';
+  if (field === 'def-value') return 'width: 80px; min-width: 80px; max-width: 80px; overflow: hidden;';
   if (field === 'priority') return 'width: 90px; min-width: 90px; max-width: 90px; overflow: hidden;';
-  if (field === 'weekly') return 'width: 100px; min-width: 100px; max-width: 100px; overflow: hidden; text-align: left;';
-  if (field === 'exception') return 'width: 110px; min-width: 110px; max-width: 110px; overflow: hidden; text-align: left;';
+  if (['weekly', 'exception', 'date', 'date-range', 'weekNday'].includes(field)) {
+    return 'width: 110px; min-width: 110px; max-width: 110px; overflow: hidden; text-align: left;';
+  }
 
   // Specific sizing for CGC types globally safely bounding
   if (field === 'OP') return 'width: 70px; min-width: 70px; max-width: 70px; overflow: hidden;';
   if (field.includes('-obj') && field !== 'slave-object-list') return 'width: 125px; min-width: 125px; max-width: 125px; overflow: hidden;';
   if (field.includes('-value') || field.includes('-val')) return 'width: 125px; min-width: 125px; max-width: 125px; overflow: hidden;';
+  if (field.startsWith('action') || field.startsWith('cond')) return 'width: 160px; min-width: 160px; max-width: 160px; overflow: hidden;';
   if (field.startsWith('comp')) return 'width: 80px; min-width: 80px; max-width: 80px; overflow: hidden;';
   if (field === 'pri_for_wr' || field === 'pri-for-wr') return 'width: 100px; min-width: 100px; max-width: 100px; overflow: hidden;';
   if (field === 'Master_Obj') return 'width: 100px; min-width: 100px; max-width: 100px; overflow: hidden;';
 
   // Specific sizing for temporal types
+  if (field === 'startDate' || field === 'endDate') return 'width: 140px; min-width: 140px; max-width: 140px; overflow: hidden;';
   if (field.toLowerCase().includes('date')) return 'width: 105px; min-width: 105px; max-width: 105px; overflow: hidden;';
   if (field.toLowerCase().includes('time')) return 'width: 100px; min-width: 100px; max-width: 100px; overflow: hidden;';
 
@@ -504,6 +536,17 @@ const openSchModal = (type, data) => {
       }
     })
     showExceptionDialog.value = true
+  } else if (['date', 'date-range', 'weekNday'].includes(type)) {
+    calContextType.value = type
+    calEditForm.value = Array.from({ length: 5 }, (_, i) => {
+      const k = i + 1
+      const actualKey = type === 'date' ? `date${k}` : (type === 'date-range' ? `date-range${k}` : `weekNday${k}`)
+      return {
+        index: k,
+        val: data[actualKey] !== undefined && data[actualKey] !== null ? data[actualKey] : ''
+      }
+    })
+    showCalDialog.value = true
   }
 }
 
@@ -531,6 +574,25 @@ const saveExceptionData = () => {
     })
   }
   showExceptionDialog.value = false
+}
+
+const showCalDialog = ref(false)
+const calContextType = ref('')
+const calEditForm = ref([])
+
+const cancelCalData = () => {
+  showCalDialog.value = false
+}
+
+const saveCalData = () => {
+  if (activeSchRowData.value) {
+    calEditForm.value.forEach(row => {
+      const type = calContextType.value
+      const actualKey = type === 'date' ? `date${row.index}` : (type === 'date-range' ? `date-range${row.index}` : `weekNday${row.index}`)
+      activeSchRowData.value[actualKey] = row.val !== null && row.val !== undefined ? row.val : ''
+    })
+  }
+  showCalDialog.value = false
 }
 
 const triggerFileUpload = () => {

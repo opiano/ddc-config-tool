@@ -47,7 +47,13 @@
     <!-- 팝오버 (Device -> Group 타일 퀵 추가 전용) -->
     <Popover ref="groupPopover">
       <div style="padding: 0.5rem; width: 33rem;">
-        <h4 style="margin: 0 0 1rem 0; font-size: 1rem; color: var(--text-main);">오브젝트 그룹 추가</h4>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+          <h4 style="margin: 0; font-size: 1rem; color: var(--text-main);">오브젝트 그룹 추가</h4>
+          <div style="display: flex; gap: 0.5rem;">
+            <Button label="ALL" class="action-btn-all" @click="handleAddAllGroups" />
+            <Button label="STD" class="action-btn-std" @click="handleAddStdGroups" />
+          </div>
+        </div>
         <div class="tile-container">
           <div 
             v-for="opt in groupOptions" 
@@ -141,6 +147,25 @@ const handleAddGroup = (opt) => {
   if (added) {
     groupPopover.value.hide()
   }
+}
+
+const handleAddAllGroups = () => {
+  let anyAdded = false;
+  groupOptions.value.forEach(opt => {
+    const added = store.addNode(targetNode.value.key, opt);
+    if (added) anyAdded = true;
+  });
+  if (anyAdded) groupPopover.value.hide();
+}
+
+const handleAddStdGroups = () => {
+  let anyAdded = false;
+  const stdGroups = ['AI', 'AO', 'AV', 'BI', 'BO', 'BV', 'MSV', 'CAL', 'SCH', 'NC', 'TLOG'];
+  stdGroups.forEach(opt => {
+    const added = store.addNode(targetNode.value.key, opt);
+    if (added) anyAdded = true;
+  });
+  if (anyAdded) groupPopover.value.hide();
 }
 
 const openEditDialog = (node) => {
@@ -249,6 +274,39 @@ const handleFileUpload = (event) => {
 }
 .node-content:hover .node-actions {
   opacity: 1;
+}
+
+/* Custom Buttons for Object Groups */
+.action-btn-all {
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%) !important;
+  border: none !important;
+  color: white !important;
+  font-weight: 700 !important;
+  border-radius: var(--radius-md) !important;
+  padding: 0.4rem 1rem !important;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1) !important;
+  transition: all 0.2s ease !important;
+}
+.action-btn-all:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px -1px rgb(0 0 0 / 0.2), 0 4px 6px -2px rgb(0 0 0 / 0.1) !important;
+  filter: brightness(1.1);
+}
+
+.action-btn-std {
+  background: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%) !important;
+  border: none !important;
+  color: white !important;
+  font-weight: 700 !important;
+  border-radius: var(--radius-md) !important;
+  padding: 0.4rem 1rem !important;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1) !important;
+  transition: all 0.2s ease !important;
+}
+.action-btn-std:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px -1px rgb(0 0 0 / 0.2), 0 4px 6px -2px rgb(0 0 0 / 0.1) !important;
+  filter: brightness(1.1);
 }
 
 /* Tile Grid for Object Selection */

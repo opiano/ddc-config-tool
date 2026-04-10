@@ -11,7 +11,7 @@
       </div>
       <div class="field-row">
         <label for="dev-desc">Desc</label>
-        <InputText id="dev-desc" v-model="deviceData.desc" @blur="saveData" placeholder="설명 입력" />
+        <InputText id="dev-desc" v-model="deviceData.desc" @blur="saveData" />
       </div>
     </div>
 
@@ -90,7 +90,7 @@
       </div>
       <div v-for="(rec, index) in deviceData.recipients" :key="index" class="recipient-row">
         <label>항목 {{ index + 1 }}</label>
-        <InputText v-model="deviceData.recipients[index]" @blur="saveData" placeholder="통보 대상 입력" />
+        <InputText v-model="deviceData.recipients[index]" @blur="saveData" placeholder="123 or 0/192.168.1.100/47808" />
         <Button icon="pi pi-trash" severity="danger" text @click="removeRecipient(index)" v-if="deviceData.recipients.length > 1" />
       </div>
       <Button icon="pi pi-plus" label="추가" outlined @click="addRecipient" v-if="deviceData.recipients.length < 5" class="mt-2" />
