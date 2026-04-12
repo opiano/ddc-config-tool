@@ -92,7 +92,27 @@ export const useConfigStore = defineStore('config', {
             }
 
             const newNodeId = uuidv4();
-            const icon = nextType === 'device' ? 'pi pi-fw pi-server' : 'pi pi-fw pi-list';
+            let icon = 'pi pi-fw pi-folder';
+            if (nextType === 'device') {
+              icon = 'pi pi-fw pi-server';
+            } else if (nextType === 'group') {
+              const lbl = label;
+              if (lbl === 'AI') icon = 'pi pi-fw pi-sign-in';
+              else if (lbl === 'AO') icon = 'pi pi-fw pi-sign-out';
+              else if (lbl === 'AV') icon = 'pi pi-fw pi-sliders-v';
+              else if (lbl === 'BI') icon = 'pi pi-fw pi-check-circle';
+              else if (lbl === 'BO') icon = 'pi pi-fw pi-circle';
+              else if (lbl === 'BV') icon = 'pi pi-fw pi-sliders-h';
+              else if (lbl === 'MSV') icon = 'pi pi-fw pi-list';
+              else if (lbl === 'CAL') icon = 'pi pi-fw pi-calendar';
+              else if (lbl === 'SCH') icon = 'pi pi-fw pi-clock';
+              else if (lbl === 'TLOG') icon = 'pi pi-fw pi-chart-line';
+              else if (lbl === 'TOT') icon = 'pi pi-fw pi-chart-bar';
+              else if (lbl === 'CGC') icon = 'pi pi-fw pi-cog';
+              else if (lbl === 'EGC') icon = 'pi pi-fw pi-bolt';
+              else if (lbl === 'NC') icon = 'pi pi-fw pi-bell';
+              else icon = 'pi pi-fw pi-list';
+            }
 
             node.children.push({
               key: newNodeId,
@@ -217,6 +237,36 @@ export const useConfigStore = defineStore('config', {
       try {
         const parsed = JSON.parse(jsonData);
         if (parsed.treeData && parsed.recordsData) {
+          
+          const updateIcons = (nodes) => {
+            nodes.forEach(node => {
+              if (node.data.type === 'device') {
+                node.icon = 'pi pi-fw pi-server';
+              } else if (node.data.type === 'group') {
+                const lbl = node.label;
+                if (lbl === 'AI') node.icon = 'pi pi-fw pi-sign-in';
+                else if (lbl === 'AO') node.icon = 'pi pi-fw pi-sign-out';
+                else if (lbl === 'AV') node.icon = 'pi pi-fw pi-sliders-v';
+                else if (lbl === 'BI') node.icon = 'pi pi-fw pi-check-circle';
+                else if (lbl === 'BO') node.icon = 'pi pi-fw pi-circle';
+                else if (lbl === 'BV') node.icon = 'pi pi-fw pi-sliders-h';
+                else if (lbl === 'MSV') node.icon = 'pi pi-fw pi-list';
+                else if (lbl === 'CAL') node.icon = 'pi pi-fw pi-calendar';
+                else if (lbl === 'SCH') node.icon = 'pi pi-fw pi-clock';
+                else if (lbl === 'TLOG') node.icon = 'pi pi-fw pi-chart-line';
+                else if (lbl === 'TOT') node.icon = 'pi pi-fw pi-chart-bar';
+                else if (lbl === 'CGC') node.icon = 'pi pi-fw pi-cog';
+                else if (lbl === 'EGC') node.icon = 'pi pi-fw pi-bolt';
+                else if (lbl === 'NC') node.icon = 'pi pi-fw pi-bell';
+                else node.icon = 'pi pi-fw pi-list';
+              }
+              if (node.children && node.children.length > 0) {
+                updateIcons(node.children);
+              }
+            });
+          };
+          updateIcons(parsed.treeData);
+
           this.treeData = parsed.treeData;
           this.recordsData = parsed.recordsData;
           this.selectedNodeKey = null;
