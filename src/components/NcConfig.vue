@@ -1,7 +1,13 @@
 <template>
   <div class="nc-config-container">
-    <TabView v-if="localData && localData.length > 0">
-      <TabPanel v-for="(nc, index) in localData" :key="nc.id" :header="'NC ' + nc.inst">
+    <TabView v-model:activeIndex="activeIndex" v-if="localData && localData.length > 0">
+      <TabPanel v-for="(nc, index) in localData" :key="nc.id">
+        <template #header>
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <span>NC {{ nc.inst }}</span>
+            <i class="pi pi-times" style="font-size: 0.8rem; cursor: pointer; color: var(--red-500, red);" @click.stop.prevent="deleteNc(nc.id)"></i>
+          </div>
+        </template>
         <div class="nc-form glass-panel">
           
           <!-- Top Section -->
@@ -103,6 +109,8 @@ const props = defineProps({
   }
 })
 
+const activeIndex = defineModel('activeIndex', { default: 0 })
+
 const booleanFields = [
   'ack_off', 'ack_fault', 'ack_norm',
   'd1_mon', 'd1_tue', 'd1_wed', 'd1_thu', 'd1_fri', 'd1_sat', 'd1_sun', 'd1_confirmed', 'd1_trans_off', 'd1_trans_fault', 'd1_trans_norm',
@@ -115,10 +123,10 @@ const numericFields = [
 ]
 
 onMounted(() => {
-  // NC 데이터를 3개로 기본 초기화
+  // NC 데이터를 1개로 기본 초기화
   if (!store.recordsData[props.nodeKey] || store.recordsData[props.nodeKey].length === 0) {
     const initData = []
-    for (let i = 1; i <= 3; i++) {
+    for (let i = 1; i <= 1; i++) {
       const ncObj = {
         id: crypto.randomUUID(),
         inst: i,
@@ -157,6 +165,15 @@ watchEffect(() => {
 })
 
 const localData = computed(() => store.recordsData[props.nodeKey] || [])
+
+const deleteNc = (id) => {
+  if (confirm("해당 NC 설정을 삭제하시겠습니까?")) {
+    store.deleteRecord(props.nodeKey, id);
+    if (activeIndex.value >= Math.max(0, localData.value.length - 1)) {
+       activeIndex.value = 0;
+    }
+  }
+}
 </script>
 
 <style scoped>

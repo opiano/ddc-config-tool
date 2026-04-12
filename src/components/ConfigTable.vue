@@ -16,6 +16,7 @@
             <Button label="열기" icon="pi pi-folder-open" @click="triggerFileUpload" severity="secondary" outlined size="small" />
             <Button label="저장" icon="pi pi-save" @click="exportData" severity="secondary" outlined size="small" />
             <Button v-if="selectedNode.data.type !== 'project'" label="메타 정보" icon="pi pi-external-link" @click="showMetaDialog = true" severity="info" outlined size="small" />
+            <Button v-if="selectedNode.data.type === 'device'" label="전체 저장" icon="pi pi-download" @click="downloadDeviceZip" severity="success" size="small" />
             <input type="file" ref="fileInput" @change="handleFileUpload" accept=".json, .txt" style="display: none;" />
             <Button v-if="selectedNode.data.type === 'group'" label="항목 추가" icon="pi pi-plus" @click="addRow" severity="primary" size="small" class="shadow-button" />
           </div>
@@ -26,7 +27,7 @@
 
       <DeviceConfig v-if="selectedNode.data.type === 'device'" :nodeKey="selectedNode.key" :key="'device-' + selectedNode.key + '-' + componentKey" />
       
-      <NcConfig v-else-if="selectedNode.data.type === 'group' && selectedNode.label === 'NC'" :nodeKey="selectedNode.key" :key="'nc-' + selectedNode.key + '-' + componentKey" />
+      <NcConfig v-model:activeIndex="activeNcTabIndex" v-else-if="selectedNode.data.type === 'group' && selectedNode.label === 'NC'" :nodeKey="selectedNode.key" :key="'nc-' + selectedNode.key + '-' + componentKey" />
 
       <!-- PrimeVue DataTable with Row Editing -->
       <DataTable v-else
@@ -68,7 +69,7 @@
           </template>
           <template #body="{ data, field }">
             <template v-if="['weekly', 'exception', 'date', 'date-range', 'weekNday'].includes(field)">
-              <Button icon="pi pi-cog" label="설정" @click="openSchModal(field, data)" class="p-button-sm p-button-outlined" style="padding: 0.2rem 0.5rem;" />
+              <Button icon="pi pi-cog" label="설정" @click="openSchModal(field, data)" class="p-button-sm" :outlined="!hasSettingContent(field, data)" :severity="hasSettingContent(field, data) ? 'info' : 'secondary'" style="padding: 0.2rem 0.5rem;" />
             </template>
             <template v-else>
               {{ data[field] }}
@@ -76,7 +77,7 @@
           </template>
           <template #editor="{ data, field }">
             <template v-if="['weekly', 'exception', 'date', 'date-range', 'weekNday'].includes(field)">
-              <Button icon="pi pi-cog" label="설정" @click="openSchModal(field, data)" class="p-button-sm p-button-outlined" style="padding: 0.2rem 0.5rem;" />
+              <Button icon="pi pi-cog" label="설정" @click="openSchModal(field, data)" class="p-button-sm" :outlined="!hasSettingContent(field, data)" :severity="hasSettingContent(field, data) ? 'info' : 'secondary'" style="padding: 0.2rem 0.5rem;" />
             </template>
             <template v-else-if="field.toLowerCase().includes('date') && field !== 'reset-date' && !field.startsWith('date-range')">
               <InputNumber v-model="data[field]" :useGrouping="false" placeholder="YYYYMMDD" style="width: 100%; max-width: 100%; min-width: 0;" :inputStyle="{ padding: '0.3rem 0.4rem', width: '100%', minWidth: '0', boxSizing: 'border-box' }" @keydown="handleKeydown($event, field)" />
@@ -134,7 +135,7 @@
       <div style="display: flex; flex-direction: column; gap: 1rem; padding: 1rem 0;">
         <div v-for="(dayCode, dayLabel) in { MON: 'mon', TUE: 'tue', WED: 'wed', THU: 'thu', FRI: 'fri', SAT: 'sat', SUN: 'sun' }" :key="dayCode" style="display: flex; align-items: center; gap: 1rem; width: 100%;">
           <label style="width: 60px; font-weight: 600; color: var(--text-muted, var(--p-text-color)); font-size: 0.9rem; text-align: right;">{{ dayLabel }}</label>
-          <InputText v-model="weeklyEditForm[dayCode]" style="flex: 1; width: 100%;" />
+          <InputText v-model="weeklyEditForm[dayCode]" placeholder="HH:MM=value or NULL ... max 10" style="flex: 1; width: 100%;" />
         </div>
       </div>
       <template #footer>
@@ -150,7 +151,7 @@
           <Column field="index" header="No" style="width: 60px; text-align: center;"></Column>
           <Column header="period" style="width: 140px;">
             <template #body="{ data }">
-              <InputText v-model="data.period" style="width: 100%; box-sizing: border-box;" />
+              <InputText v-model="data.period" :placeholder="data.index === 1 ? 'cal-inst' : data.index === 2 ? 'date' : data.index === 3 ? 'date-range' : data.index === 4 ? 'M-W-Dow' : ''" style="width: 100%; box-sizing: border-box;" />
             </template>
           </Column>
           <Column header="tv">
@@ -196,6 +197,8 @@
 <script setup>
 import { ref, computed, watch } from 'vue'
 import { useConfigStore } from '../store/configStore'
+import JSZip from 'jszip'
+import { saveAs } from 'file-saver'
 import DataTable from 'primevue/datatable'
 import Column from 'primevue/column'
 import Button from 'primevue/button'
@@ -464,6 +467,48 @@ const validateRecord = (recordToSave) => {
 
 const addRow = () => {
   if (!selectedNode.value) return
+  
+  if (selectedNode.value.label === 'NC') {
+    const records = store.recordsData[selectedNode.value.key] || [];
+    if (records.length >= 3) {
+      alert('NC 항목은 최대 3개까지만 추가할 수 있습니다.');
+      return;
+    }
+    
+    // 비어있는 가장 빠른 번호 찾기 (1, 2, 3 중)
+    const existingInsts = records.map(r => r.inst);
+    let nextInst = 1;
+    for (let i = 1; i <= 3; i++) {
+      if (!existingInsts.includes(i)) {
+        nextInst = i;
+        break;
+      }
+    }
+
+    const booleanFields = [
+      'ack_off', 'ack_fault', 'ack_norm', 'd1_mon', 'd1_tue', 'd1_wed', 'd1_thu', 'd1_fri', 'd1_sat', 'd1_sun', 'd1_confirmed', 'd1_trans_off', 'd1_trans_fault', 'd1_trans_norm',
+      'd2_mon', 'd2_tue', 'd2_wed', 'd2_thu', 'd2_fri', 'd2_sat', 'd2_sun', 'd2_confirmed', 'd2_trans_off', 'd2_trans_fault', 'd2_trans_norm'
+    ];
+    const numericFields = ['priority_off', 'priority_fault', 'priority_norm', 'd1_proc_id', 'd2_proc_id'];
+
+    const ncObj = {
+      id: crypto.randomUUID(),
+      inst: nextInst,
+      name: '', desc: '',
+      d1_time_start: '', d1_time_end: '', d1_recipient: '',
+      d2_time_start: '', d2_time_end: '', d2_recipient: ''
+    };
+    booleanFields.forEach(f => ncObj[f] = false);
+    numericFields.forEach(f => ncObj[f] = null);
+    
+    // Sort array so tabs reflect order 1,2,3...
+    store.addRecord(selectedNode.value.key, ncObj);
+    const updatedRecords = store.recordsData[selectedNode.value.key];
+    updatedRecords.sort((a, b) => a.inst - b.inst);
+    
+    return;
+  }
+
   // 새 행 추가시 컬럼 타입에 따라 초기값 설정
   const newRow = columns.value.reduce((acc, col) => {
     if (col.field.includes('Date')) {
@@ -520,6 +565,7 @@ const deleteRow = (id) => {
 }
 
 // Data Actions
+const activeNcTabIndex = ref(0)
 const componentKey = ref(0)
 const fileInput = ref(null)
 const showMetaDialog = ref(false)
@@ -573,6 +619,31 @@ const openSchModal = (type, data) => {
 
 const cancelWeeklyData = () => {
   showWeeklyDialog.value = false
+}
+
+const hasSettingContent = (field, data) => {
+  if (!data) return false;
+  if (field === 'weekly') {
+    return !!(data.mon || data.tue || data.wed || data.thu || data.fri || data.sat || data.sun);
+  }
+  if (field === 'exception') {
+    for (let i = 1; i <= 10; i++) {
+        if (data[`ex${i}.period`] || data[`ex${i}.tv`] || (data[`ex${i}.pri`] !== undefined && data[`ex${i}.pri`] !== null && data[`ex${i}.pri`] !== '')) {
+            return true;
+        }
+    }
+    return false;
+  }
+  if (field === 'date') {
+    for (let i=1; i<=5; i++) if (data[`date${i}`]) return true;
+  }
+  if (field === 'date-range') {
+    for (let i=1; i<=5; i++) if (data[`date-range${i}`]) return true;
+  }
+  if (field === 'weekNday') {
+    for (let i=1; i<=5; i++) if (data[`weekNday${i}`]) return true;
+  }
+  return false;
 }
 
 const saveWeeklyData = () => {
@@ -690,44 +761,38 @@ const parseDeviceTextFormat = (text) => {
   return data;
 };
 
-const getNcTextContent = (records) => {
+const getNcTextContent = (r) => {
+  if (!r) return ''
   let output = '#Notf object config\n'
-  records.forEach((r, idx) => {
-    // Only output if inst exists and it has valid fields
-    if (!r.inst) return
-    output += `INST=${r.inst}\n`
-    output += `NAME=${r.name || ''}\n`
-    output += `DESC=${r.desc || ''}\n`
-    output += `PRI=${r.priority_off || 0},${r.priority_fault || 0},${r.priority_norm || 0}\n`
-    output += `ACK_REQ=${r.ack_off ? 1 : 0},${r.ack_fault ? 1 : 0},${r.ack_norm ? 1 : 0}\n\n`
-    
-    output += `#Valid Days: from monday, 1 or 0\n`
-    output += `1_VALID_DAYS=${r.d1_mon?1:0},${r.d1_tue?1:0},${r.d1_wed?1:0},${r.d1_thu?1:0},${r.d1_fri?1:0},${r.d1_sat?1:0},${r.d1_sun?1:0}\n`
-    output += `1_FROM_TIME=${r.d1_time_start || '00:00:00'}\n`
-    output += `1_TO_TIME=${r.d1_time_end || '23:59:59'}\n`
-    output += `# devid or net/mac\n`
-    output += `1_RECIPIENT=${r.d1_recipient || ''}\n`
-    output += `1_PROC_ID=${r.d1_proc_id || 0}\n`
-    output += `1_CONF=${r.d1_confirmed ? 1 : 0}\n`
-    output += `1_TRANS=${r.d1_trans_off?1:0},${r.d1_trans_fault?1:0},${r.d1_trans_norm?1:0}\n\n`
-    
-    if (idx === 0) output += `# 2nd Destination\n`
-    output += `2_VALID_DAYS=${r.d2_mon?1:0},${r.d2_tue?1:0},${r.d2_wed?1:0},${r.d2_thu?1:0},${r.d2_fri?1:0},${r.d2_sat?1:0},${r.d2_sun?1:0}\n`
-    output += `2_FROM_TIME=${r.d2_time_start || '00:00:00'}\n`
-    output += `2_TO_TIME=${r.d2_time_end || '23:59:59'}\n`
-    output += `2_RECIPIENT=${r.d2_recipient || ''}\n`
-    output += `2_PROC_ID=${r.d2_proc_id || 0}\n`
-    output += `2_CONF=${r.d2_confirmed ? 1 : 0}\n`
-    output += `2_TRANS=${r.d2_trans_off?1:0},${r.d2_trans_fault?1:0},${r.d2_trans_norm?1:0}\n`
-    output += `\n` // separator between NCs
-  })
+  output += `NAME=${r.name || ''}\n`
+  output += `DESC=${r.desc || ''}\n`
+  output += `PRI=${r.priority_off || 0},${r.priority_fault || 0},${r.priority_norm || 0}\n`
+  output += `ACK_REQ=${r.ack_off ? 1 : 0},${r.ack_fault ? 1 : 0},${r.ack_norm ? 1 : 0}\n\n`
+  
+  output += `#Valid Days: from monday, 1 or 0\n`
+  output += `1_VALID_DAYS=${r.d1_mon?1:0},${r.d1_tue?1:0},${r.d1_wed?1:0},${r.d1_thu?1:0},${r.d1_fri?1:0},${r.d1_sat?1:0},${r.d1_sun?1:0}\n`
+  output += `1_FROM_TIME=${r.d1_time_start || '00:00:00'}\n`
+  output += `1_TO_TIME=${r.d1_time_end || '23:59:59'}\n`
+  output += `# devid or net/mac\n`
+  output += `1_RECIPIENT=${r.d1_recipient || ''}\n`
+  output += `1_PROC_ID=${r.d1_proc_id || 0}\n`
+  output += `1_CONF=${r.d1_confirmed ? 1 : 0}\n`
+  output += `1_TRANS=${r.d1_trans_off?1:0},${r.d1_trans_fault?1:0},${r.d1_trans_norm?1:0}\n\n`
+  
+  output += `# 2nd Destination\n`
+  output += `2_VALID_DAYS=${r.d2_mon?1:0},${r.d2_tue?1:0},${r.d2_wed?1:0},${r.d2_thu?1:0},${r.d2_fri?1:0},${r.d2_sat?1:0},${r.d2_sun?1:0}\n`
+  output += `2_FROM_TIME=${r.d2_time_start || '00:00:00'}\n`
+  output += `2_TO_TIME=${r.d2_time_end || '23:59:59'}\n`
+  output += `2_RECIPIENT=${r.d2_recipient || ''}\n`
+  output += `2_PROC_ID=${r.d2_proc_id || 0}\n`
+  output += `2_CONF=${r.d2_confirmed ? 1 : 0}\n`
+  output += `2_TRANS=${r.d2_trans_off?1:0},${r.d2_trans_fault?1:0},${r.d2_trans_norm?1:0}\n`
   return output.trim()
 }
 
 const parseNcTextFormat = (text) => {
   const lines = text.split('\n')
-  const results = []
-  let currentNc = null
+  const currentNc = {}
 
   lines.forEach(line => {
     line = line.trim()
@@ -738,53 +803,46 @@ const parseNcTextFormat = (text) => {
     const key = line.substring(0, eqIdx).trim()
     const val = line.substring(eqIdx + 1).trim()
 
-    if (key === 'INST') {
-      if (currentNc) results.push(currentNc)
-      currentNc = { id: crypto.randomUUID(), inst: parseInt(val) }
-    } else if (currentNc) {
-      if (key === 'NAME') currentNc.name = val
-      else if (key === 'DESC') currentNc.desc = val
-      else if (key === 'PRI') {
-        const parts = val.split(',')
-        currentNc.priority_off = parseFloat(parts[0]) || 0
-        currentNc.priority_fault = parseFloat(parts[1]) || 0
-        currentNc.priority_norm = parseFloat(parts[2]) || 0
-      } else if (key === 'ACK_REQ') {
-        const parts = val.split(',')
-        currentNc.ack_off = parts[0] === '1'
-        currentNc.ack_fault = parts[1] === '1'
-        currentNc.ack_norm = parts[2] === '1'
-      } else if (key === '1_VALID_DAYS') {
-        const p = val.split(',')
-        currentNc.d1_mon=p[0]==='1'; currentNc.d1_tue=p[1]==='1'; currentNc.d1_wed=p[2]==='1';
-        currentNc.d1_thu=p[3]==='1'; currentNc.d1_fri=p[4]==='1'; currentNc.d1_sat=p[5]==='1'; currentNc.d1_sun=p[6]==='1';
-      } else if (key === '1_FROM_TIME') currentNc.d1_time_start = val
-      else if (key === '1_TO_TIME') currentNc.d1_time_end = val
-      else if (key === '1_RECIPIENT') currentNc.d1_recipient = val
-      else if (key === '1_PROC_ID') currentNc.d1_proc_id = parseFloat(val) || 0
-      else if (key === '1_CONF') currentNc.d1_confirmed = (val === '1')
-      else if (key === '1_TRANS') {
-        const p = val.split(',')
-        currentNc.d1_trans_off=p[0]==='1'; currentNc.d1_trans_fault=p[1]==='1'; currentNc.d1_trans_norm=p[2]==='1';
-      } else if (key === '2_VALID_DAYS') {
-        const p = val.split(',')
-        currentNc.d2_mon=p[0]==='1'; currentNc.d2_tue=p[1]==='1'; currentNc.d2_wed=p[2]==='1';
-        currentNc.d2_thu=p[3]==='1'; currentNc.d2_fri=p[4]==='1'; currentNc.d2_sat=p[5]==='1'; currentNc.d2_sun=p[6]==='1';
-      } else if (key === '2_FROM_TIME') currentNc.d2_time_start = val
-      else if (key === '2_TO_TIME') currentNc.d2_time_end = val
-      else if (key === '2_RECIPIENT') currentNc.d2_recipient = val
-      else if (key === '2_PROC_ID') currentNc.d2_proc_id = parseFloat(val) || 0
-      else if (key === '2_CONF') currentNc.d2_confirmed = (val === '1')
-      else if (key === '2_TRANS') {
-        const p = val.split(',')
-        currentNc.d2_trans_off=p[0]==='1'; currentNc.d2_trans_fault=p[1]==='1'; currentNc.d2_trans_norm=p[2]==='1';
-      }
+    if (key === 'NAME') currentNc.name = val
+    else if (key === 'DESC') currentNc.desc = val
+    else if (key === 'PRI') {
+      const parts = val.split(',')
+      currentNc.priority_off = parseFloat(parts[0]) || 0
+      currentNc.priority_fault = parseFloat(parts[1]) || 0
+      currentNc.priority_norm = parseFloat(parts[2]) || 0
+    } else if (key === 'ACK_REQ') {
+      const parts = val.split(',')
+      currentNc.ack_off = parts[0] === '1'
+      currentNc.ack_fault = parts[1] === '1'
+      currentNc.ack_norm = parts[2] === '1'
+    } else if (key === '1_VALID_DAYS') {
+      const p = val.split(',')
+      currentNc.d1_mon=p[0]==='1'; currentNc.d1_tue=p[1]==='1'; currentNc.d1_wed=p[2]==='1';
+      currentNc.d1_thu=p[3]==='1'; currentNc.d1_fri=p[4]==='1'; currentNc.d1_sat=p[5]==='1'; currentNc.d1_sun=p[6]==='1';
+    } else if (key === '1_FROM_TIME') currentNc.d1_time_start = val
+    else if (key === '1_TO_TIME') currentNc.d1_time_end = val
+    else if (key === '1_RECIPIENT') currentNc.d1_recipient = val
+    else if (key === '1_PROC_ID') currentNc.d1_proc_id = parseFloat(val) || 0
+    else if (key === '1_CONF') currentNc.d1_confirmed = (val === '1')
+    else if (key === '1_TRANS') {
+      const p = val.split(',')
+      currentNc.d1_trans_off=p[0]==='1'; currentNc.d1_trans_fault=p[1]==='1'; currentNc.d1_trans_norm=p[2]==='1';
+    } else if (key === '2_VALID_DAYS') {
+      const p = val.split(',')
+      currentNc.d2_mon=p[0]==='1'; currentNc.d2_tue=p[1]==='1'; currentNc.d2_wed=p[2]==='1';
+      currentNc.d2_thu=p[3]==='1'; currentNc.d2_fri=p[4]==='1'; currentNc.d2_sat=p[5]==='1'; currentNc.d2_sun=p[6]==='1';
+    } else if (key === '2_FROM_TIME') currentNc.d2_time_start = val
+    else if (key === '2_TO_TIME') currentNc.d2_time_end = val
+    else if (key === '2_RECIPIENT') currentNc.d2_recipient = val
+    else if (key === '2_PROC_ID') currentNc.d2_proc_id = parseFloat(val) || 0
+    else if (key === '2_CONF') currentNc.d2_confirmed = (val === '1')
+    else if (key === '2_TRANS') {
+      const p = val.split(',')
+      currentNc.d2_trans_off=p[0]==='1'; currentNc.d2_trans_fault=p[1]==='1'; currentNc.d2_trans_norm=p[2]==='1';
     }
   })
-  if (currentNc) results.push(currentNc)
 
-  // Maintain initial constraints ensuring empty initializations auto-boot safely
-  return results.length > 0 ? results : []
+  return currentNc
 };
 
 const parseGroupTextFormat = (text, groupLabel) => {
@@ -862,7 +920,13 @@ const handleFileUpload = (event) => {
             contents = parseDeviceTextFormat(e.target.result)
           } else if (selectedNode.value.data.type === 'group') {
             if (selectedNode.value.label === 'NC') {
-              contents = parseNcTextFormat(e.target.result)
+              const parsedNc = parseNcTextFormat(e.target.result);
+              const currentArray = store.recordsData[selectedNode.value.key] || [];
+              const targetIndex = activeNcTabIndex.value || 0;
+              if (currentArray[targetIndex]) {
+                Object.assign(currentArray[targetIndex], parsedNc);
+              }
+              contents = currentArray;
             } else {
               contents = parseGroupTextFormat(e.target.result, selectedNode.value.label)
             }
@@ -901,7 +965,13 @@ const exportData = () => {
   if (isDevice) {
     downloadFileName = "DEV.txt"
   } else if (isGroup) {
-    downloadFileName = `${selectedNode.value.label}.txt`
+    if (selectedNode.value.label === 'NC') {
+      const records = store.recordsData[selectedNode.value.key] || [];
+      const activeObj = records[activeNcTabIndex.value];
+      downloadFileName = activeObj && activeObj.inst ? `NC${activeObj.inst}.txt` : 'NC.txt';
+    } else {
+      downloadFileName = `${selectedNode.value.label}.txt`
+    }
   }
   
   const dataStr = `data:${mimeType};charset=utf-8,` + encodeURIComponent(contentStr)
@@ -913,12 +983,48 @@ const exportData = () => {
   downloadAnchorNode.remove()
 }
 
-const formattedMetaData = computed(() => {
-  if (!selectedNode.value) return ''
-  const data = store.recordsData[selectedNode.value.key]
-  if (!data) return '데이터가 없습니다.'
+const downloadDeviceZip = async () => {
+  if (!selectedNode.value || selectedNode.value.data.type !== 'device') return;
+  
+  const zip = new JSZip();
+  const devText = formatNodeData(selectedNode.value);
+  zip.file("DEV.txt", devText);
+  
+  if (selectedNode.value.children && selectedNode.value.children.length > 0) {
+    selectedNode.value.children.forEach(child => {
+      if (child.data.type === 'group') {
+        const cData = store.recordsData[child.key];
+        if (cData && (Array.isArray(cData) ? cData.length > 0 : true)) {
+          if (child.label === 'NC') {
+            cData.forEach(nc => {
+              if (nc && nc.inst) {
+                const ncText = getNcTextContent(nc);
+                if (ncText && ncText !== '데이터가 없습니다.') {
+                  zip.file(`NC${nc.inst}.txt`, ncText);
+                }
+              }
+            });
+          } else {
+            const childText = formatNodeData(child);
+            if (childText && childText !== '데이터가 없습니다.') {
+              zip.file(`${child.label}.txt`, childText);
+            }
+          }
+        }
+      }
+    });
+  }
+  
+  const content = await zip.generateAsync({ type: "blob" });
+  saveAs(content, `${selectedNode.value.label || 'Device'}_config.zip`);
+}
 
-  if (selectedNode.value.data.type === 'device') {
+const formatNodeData = (node) => {
+  if (!node) return '';
+  const data = store.recordsData[node.key];
+  if (!data) return '데이터가 없습니다.';
+
+  if (node.data.type === 'device') {
     let output = `NAME=${data.name || ''}\nDESC=${data.desc || ''}\n\n`;
 
     // Ports
@@ -966,12 +1072,13 @@ const formattedMetaData = computed(() => {
     return output.trim();
   }
 
-  if (selectedNode.value.data.type === 'group') {
-    if (selectedNode.value.label === 'NC') {
-      return getNcTextContent(data)
+  if (node.data.type === 'group') {
+    if (node.label === 'NC') {
+      const activeData = Array.isArray(data) ? data[activeNcTabIndex.value] : null;
+      return getNcTextContent(activeData)
     }
     
-    const cols = groupColumnsMap[selectedNode.value.label];
+    const cols = groupColumnsMap[node.label];
     if (!cols) return JSON.stringify(data, null, 2);
     
     let output = `#${cols.join(',')}\n`;
@@ -992,7 +1099,9 @@ const formattedMetaData = computed(() => {
   }
 
   return JSON.stringify(data, null, 2)
-})
+}
+
+const formattedMetaData = computed(() => formatNodeData(selectedNode.value))
 
 const copyMetaData = () => {
   navigator.clipboard.writeText(formattedMetaData.value).then(() => {

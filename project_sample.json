@@ -1,0 +1,2788 @@
+{
+  "treeData": [
+    {
+      "key": "root-project",
+      "label": "Project",
+      "data": {
+        "type": "project",
+        "depth": 1
+      },
+      "children": [
+        {
+          "key": "388ce052-d3ec-4d8e-ace6-1f25e063bd1e",
+          "label": "Device-300",
+          "data": {
+            "type": "device",
+            "depth": 2
+          },
+          "children": [
+            {
+              "key": "e9ba27b1-8b5b-4737-8a9a-6592fb18d65d",
+              "label": "AI",
+              "data": {
+                "type": "group",
+                "depth": 3
+              },
+              "children": [],
+              "icon": "pi pi-fw pi-list",
+              "styleClass": "node-group-item"
+            },
+            {
+              "key": "9dc3f49b-562e-4617-a26a-8fd6c2ac5c90",
+              "label": "AO",
+              "data": {
+                "type": "group",
+                "depth": 3
+              },
+              "children": [],
+              "icon": "pi pi-fw pi-list",
+              "styleClass": "node-group-item"
+            },
+            {
+              "key": "a62cd9ce-134b-42a7-a1fb-db4838708ac6",
+              "label": "AV",
+              "data": {
+                "type": "group",
+                "depth": 3
+              },
+              "children": [],
+              "icon": "pi pi-fw pi-list",
+              "styleClass": "node-group-item"
+            },
+            {
+              "key": "a9d123bc-d86a-480e-b356-0cbc248c6058",
+              "label": "BI",
+              "data": {
+                "type": "group",
+                "depth": 3
+              },
+              "children": [],
+              "icon": "pi pi-fw pi-list",
+              "styleClass": "node-group-item"
+            },
+            {
+              "key": "eadb5b2d-df62-4a7b-ad19-b52bd17989a8",
+              "label": "BO",
+              "data": {
+                "type": "group",
+                "depth": 3
+              },
+              "children": [],
+              "icon": "pi pi-fw pi-list",
+              "styleClass": "node-group-item"
+            },
+            {
+              "key": "9f6972f9-324e-4307-b865-613dd64a41c3",
+              "label": "BV",
+              "data": {
+                "type": "group",
+                "depth": 3
+              },
+              "children": [],
+              "icon": "pi pi-fw pi-list",
+              "styleClass": "node-group-item"
+            },
+            {
+              "key": "cef8a974-72e0-4a18-b8d1-454c84a4444a",
+              "label": "MSV",
+              "data": {
+                "type": "group",
+                "depth": 3
+              },
+              "children": [],
+              "icon": "pi pi-fw pi-list",
+              "styleClass": "node-group-item"
+            },
+            {
+              "key": "9ed031dd-d9bf-4384-b6b5-9e1219620c13",
+              "label": "CAL",
+              "data": {
+                "type": "group",
+                "depth": 3
+              },
+              "children": [],
+              "icon": "pi pi-fw pi-list",
+              "styleClass": "node-group-item"
+            },
+            {
+              "key": "27167cfb-66aa-4df2-b6dc-04b4677d6378",
+              "label": "SCH",
+              "data": {
+                "type": "group",
+                "depth": 3
+              },
+              "children": [],
+              "icon": "pi pi-fw pi-list",
+              "styleClass": "node-group-item"
+            },
+            {
+              "key": "6852de8e-3666-424a-9e9b-26527e2e51d6",
+              "label": "NC",
+              "data": {
+                "type": "group",
+                "depth": 3
+              },
+              "children": [],
+              "icon": "pi pi-fw pi-list",
+              "styleClass": "node-group-item"
+            },
+            {
+              "key": "de02b8f8-0f1f-4cb9-a511-7e73fc84b055",
+              "label": "TLOG",
+              "data": {
+                "type": "group",
+                "depth": 3
+              },
+              "children": [],
+              "icon": "pi pi-fw pi-list",
+              "styleClass": "node-group-item"
+            },
+            {
+              "key": "fed5e2ef-5d91-42fe-adc1-187ee74ac457",
+              "label": "TOT",
+              "data": {
+                "type": "group",
+                "depth": 3
+              },
+              "children": [],
+              "icon": "pi pi-fw pi-list",
+              "styleClass": "node-group-item"
+            },
+            {
+              "key": "421b51de-7d16-4a24-bc5a-f85d10786795",
+              "label": "CGC",
+              "data": {
+                "type": "group",
+                "depth": 3
+              },
+              "children": [],
+              "icon": "pi pi-fw pi-list",
+              "styleClass": "node-group-item"
+            },
+            {
+              "key": "538ed457-7fc4-486f-971f-937c549e9208",
+              "label": "EGC",
+              "data": {
+                "type": "group",
+                "depth": 3
+              },
+              "children": [],
+              "icon": "pi pi-fw pi-list",
+              "styleClass": "node-group-item"
+            }
+          ],
+          "icon": "pi pi-fw pi-server",
+          "styleClass": ""
+        }
+      ],
+      "icon": "pi pi-fw pi-folder"
+    }
+  ],
+  "recordsData": {
+    "388ce052-d3ec-4d8e-ace6-1f25e063bd1e": {
+      "name": "S-CON DEV",
+      "desc": "b.IoT Controller",
+      "ports": [
+        {
+          "portNum": 1,
+          "protocol": "RevPI",
+          "networkNum": 0,
+          "baudRate": 115200,
+          "dataBits": 8,
+          "stopBits": 1,
+          "parity": "No",
+          "modules": [
+            {
+              "num": 1,
+              "type": "RevPI-AIO",
+              "name": ""
+            },
+            {
+              "num": 2,
+              "type": "RevPI-DIO",
+              "name": ""
+            },
+            {
+              "num": 3,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 4,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 5,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 6,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 7,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 8,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 9,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 10,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 11,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 12,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 13,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 14,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 15,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 16,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 17,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 18,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 19,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 20,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 21,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 22,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 23,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 24,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 25,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 26,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 27,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 28,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 29,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 30,
+              "type": "NONE",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "portNum": 2,
+          "protocol": "Modbus/RTU",
+          "networkNum": 0,
+          "baudRate": 19200,
+          "dataBits": 8,
+          "stopBits": 1,
+          "parity": "No",
+          "modules": [
+            {
+              "num": 1,
+              "type": "SIO-0800",
+              "name": ""
+            },
+            {
+              "num": 2,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 3,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 4,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 5,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 6,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 7,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 8,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 9,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 10,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 11,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 12,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 13,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 14,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 15,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 16,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 17,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 18,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 19,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 20,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 21,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 22,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 23,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 24,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 25,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 26,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 27,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 28,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 29,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 30,
+              "type": "NONE",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "portNum": 3,
+          "protocol": "NONE",
+          "networkNum": 0,
+          "baudRate": 115200,
+          "dataBits": 8,
+          "stopBits": 1,
+          "parity": "No",
+          "modules": [
+            {
+              "num": 1,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 2,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 3,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 4,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 5,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 6,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 7,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 8,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 9,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 10,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 11,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 12,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 13,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 14,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 15,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 16,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 17,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 18,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 19,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 20,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 21,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 22,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 23,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 24,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 25,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 26,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 27,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 28,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 29,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 30,
+              "type": "NONE",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "portNum": 4,
+          "protocol": "NONE",
+          "networkNum": 0,
+          "baudRate": 115200,
+          "dataBits": 8,
+          "stopBits": 1,
+          "parity": "No",
+          "modules": [
+            {
+              "num": 1,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 2,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 3,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 4,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 5,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 6,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 7,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 8,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 9,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 10,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 11,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 12,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 13,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 14,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 15,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 16,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 17,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 18,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 19,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 20,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 21,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 22,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 23,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 24,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 25,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 26,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 27,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 28,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 29,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 30,
+              "type": "NONE",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "portNum": 5,
+          "protocol": "NONE",
+          "networkNum": 0,
+          "baudRate": 115200,
+          "dataBits": 8,
+          "stopBits": 1,
+          "parity": "No",
+          "modules": [
+            {
+              "num": 1,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 2,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 3,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 4,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 5,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 6,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 7,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 8,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 9,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 10,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 11,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 12,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 13,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 14,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 15,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 16,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 17,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 18,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 19,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 20,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 21,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 22,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 23,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 24,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 25,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 26,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 27,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 28,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 29,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 30,
+              "type": "NONE",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "portNum": 6,
+          "protocol": "NONE",
+          "networkNum": 0,
+          "baudRate": 115200,
+          "dataBits": 8,
+          "stopBits": 1,
+          "parity": "No",
+          "modules": [
+            {
+              "num": 1,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 2,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 3,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 4,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 5,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 6,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 7,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 8,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 9,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 10,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 11,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 12,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 13,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 14,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 15,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 16,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 17,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 18,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 19,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 20,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 21,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 22,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 23,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 24,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 25,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 26,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 27,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 28,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 29,
+              "type": "NONE",
+              "name": ""
+            },
+            {
+              "num": 30,
+              "type": "NONE",
+              "name": ""
+            }
+          ]
+        }
+      ],
+      "recipients": [
+        "30001",
+        "0/192.168.219.110:47808"
+      ]
+    },
+    "e9ba27b1-8b5b-4737-8a9a-6592fb18d65d": [
+      {
+        "inst": 1,
+        "port": "1",
+        "mod": "1",
+        "ch": "5",
+        "name": "AI-1",
+        "desc": "Analog Input",
+        "thid": "",
+        "units": "62",
+        "maxVal": "200",
+        "minVal": "-20",
+        "gain": "0.1",
+        "bias": "0",
+        "nc": "1",
+        "e.detect": "1",
+        "almEnable": "1",
+        "almHL": "90",
+        "almLL": "10",
+        "deadband": "3",
+        "timedelay": "3",
+        "cov.inc": "10",
+        "pv.inc": "0",
+        "cov.en": "0",
+        "tlog.en": "0"
+      }
+    ],
+    "9dc3f49b-562e-4617-a26a-8fd6c2ac5c90": [
+      {
+        "inst": 1,
+        "port": "1",
+        "mod": "1",
+        "ch": "1",
+        "name": "AO-1",
+        "desc": "Analog Output",
+        "thid": "",
+        "units": "98",
+        "maxVal": "100",
+        "minVal": "0",
+        "initVal": "50",
+        "nc": "1",
+        "e.detect": "1",
+        "almEnable": "1",
+        "almHL": "90",
+        "almLL": "10",
+        "deadband": "3",
+        "timedelay": "3",
+        "cov.inc": "10",
+        "pv.inc": "0",
+        "cov.en": "0",
+        "tlog.en": "0"
+      }
+    ],
+    "a62cd9ce-134b-42a7-a1fb-db4838708ac6": [
+      {
+        "inst": 1,
+        "port": "0",
+        "mod": "0",
+        "ch": "1",
+        "name": "AV-01",
+        "desc": "Analog Value",
+        "thid": "",
+        "units": "95",
+        "initVal": "50",
+        "nc": "1",
+        "e.detect": "0",
+        "almEnable": "1",
+        "almHL": "80",
+        "almLL": "20",
+        "deadband": "3",
+        "timedelay": "3",
+        "cov.inc": "10",
+        "pv.inc": "0",
+        "cov.en": "0",
+        "tlog.en": "0"
+      },
+      {
+        "inst": 2,
+        "port": "0",
+        "mod": "0",
+        "ch": "2",
+        "name": "AV-02",
+        "desc": "Analog Value",
+        "thid": "",
+        "units": "95",
+        "initVal": "50",
+        "nc": "1",
+        "e.detect": "0",
+        "almEnable": "1",
+        "almHL": "80",
+        "almLL": "20",
+        "deadband": "3",
+        "timedelay": "3",
+        "cov.inc": "10",
+        "pv.inc": "0",
+        "cov.en": "0",
+        "tlog.en": "0"
+      },
+      {
+        "inst": 3,
+        "port": "0",
+        "mod": "0",
+        "ch": "3",
+        "name": "AV-03",
+        "desc": "Analog Value",
+        "thid": "",
+        "units": "95",
+        "initVal": "50",
+        "nc": "1",
+        "e.detect": "0",
+        "almEnable": "1",
+        "almHL": "80",
+        "almLL": "20",
+        "deadband": "3",
+        "timedelay": "3",
+        "cov.inc": "10",
+        "pv.inc": "0",
+        "cov.en": "0",
+        "tlog.en": "0"
+      },
+      {
+        "inst": 4,
+        "port": "0",
+        "mod": "0",
+        "ch": "4",
+        "name": "AV-04",
+        "desc": "Analog Value",
+        "thid": "",
+        "units": "95",
+        "initVal": "50",
+        "nc": "1",
+        "e.detect": "0",
+        "almEnable": "1",
+        "almHL": "80",
+        "almLL": "20",
+        "deadband": "3",
+        "timedelay": "3",
+        "cov.inc": "10",
+        "pv.inc": "0",
+        "cov.en": "0",
+        "tlog.en": "0"
+      },
+      {
+        "inst": 5,
+        "port": "0",
+        "mod": "0",
+        "ch": "5",
+        "name": "AV-05",
+        "desc": "Analog Value",
+        "thid": "",
+        "units": "95",
+        "initVal": "50",
+        "nc": "1",
+        "e.detect": "0",
+        "almEnable": "1",
+        "almHL": "80",
+        "almLL": "20",
+        "deadband": "3",
+        "timedelay": "3",
+        "cov.inc": "10",
+        "pv.inc": "0",
+        "cov.en": "0",
+        "tlog.en": "0"
+      },
+      {
+        "inst": 6,
+        "port": "0",
+        "mod": "0",
+        "ch": "6",
+        "name": "AV-06",
+        "desc": "Analog Value",
+        "thid": "",
+        "units": "95",
+        "initVal": "50",
+        "nc": "1",
+        "e.detect": "0",
+        "almEnable": "1",
+        "almHL": "80",
+        "almLL": "20",
+        "deadband": "3",
+        "timedelay": "3",
+        "cov.inc": "10",
+        "pv.inc": "0",
+        "cov.en": "0",
+        "tlog.en": "0"
+      },
+      {
+        "inst": 7,
+        "port": "0",
+        "mod": "0",
+        "ch": "7",
+        "name": "AV-07",
+        "desc": "Analog Value",
+        "thid": "",
+        "units": "95",
+        "initVal": "50",
+        "nc": "1",
+        "e.detect": "0",
+        "almEnable": "1",
+        "almHL": "80",
+        "almLL": "20",
+        "deadband": "3",
+        "timedelay": "3",
+        "cov.inc": "10",
+        "pv.inc": "0",
+        "cov.en": "0",
+        "tlog.en": "0"
+      },
+      {
+        "inst": 8,
+        "port": "0",
+        "mod": "0",
+        "ch": "8",
+        "name": "AV-08",
+        "desc": "Analog Value",
+        "thid": "",
+        "units": "95",
+        "initVal": "50",
+        "nc": "1",
+        "e.detect": "0",
+        "almEnable": "1",
+        "almHL": "80",
+        "almLL": "20",
+        "deadband": "3",
+        "timedelay": "3",
+        "cov.inc": "10",
+        "pv.inc": "0",
+        "cov.en": "0",
+        "tlog.en": "0"
+      },
+      {
+        "inst": 9,
+        "port": "0",
+        "mod": "0",
+        "ch": "9",
+        "name": "AV-09",
+        "desc": "Analog Value",
+        "thid": "",
+        "units": "95",
+        "initVal": "50",
+        "nc": "1",
+        "e.detect": "0",
+        "almEnable": "1",
+        "almHL": "80",
+        "almLL": "20",
+        "deadband": "3",
+        "timedelay": "3",
+        "cov.inc": "10",
+        "pv.inc": "0",
+        "cov.en": "0",
+        "tlog.en": "0"
+      },
+      {
+        "inst": 10,
+        "port": "0",
+        "mod": "0",
+        "ch": "10",
+        "name": "AV-10",
+        "desc": "Analog Value",
+        "thid": "",
+        "units": "95",
+        "initVal": "50",
+        "nc": "1",
+        "e.detect": "0",
+        "almEnable": "1",
+        "almHL": "80",
+        "almLL": "20",
+        "deadband": "3",
+        "timedelay": "3",
+        "cov.inc": "10",
+        "pv.inc": "0",
+        "cov.en": "0",
+        "tlog.en": "0"
+      },
+      {
+        "inst": 11,
+        "port": "0",
+        "mod": "0",
+        "ch": "11",
+        "name": "AV-11",
+        "desc": "Analog Value",
+        "thid": "",
+        "units": "95",
+        "initVal": "50",
+        "nc": "1",
+        "e.detect": "0",
+        "almEnable": "1",
+        "almHL": "80",
+        "almLL": "20",
+        "deadband": "3",
+        "timedelay": "3",
+        "cov.inc": "10",
+        "pv.inc": "0",
+        "cov.en": "0",
+        "tlog.en": "0"
+      },
+      {
+        "inst": 12,
+        "port": "0",
+        "mod": "0",
+        "ch": "12",
+        "name": "AV-12",
+        "desc": "Analog Value",
+        "thid": "",
+        "units": "95",
+        "initVal": "50",
+        "nc": "1",
+        "e.detect": "0",
+        "almEnable": "1",
+        "almHL": "80",
+        "almLL": "20",
+        "deadband": "3",
+        "timedelay": "3",
+        "cov.inc": "10",
+        "pv.inc": "0",
+        "cov.en": "0",
+        "tlog.en": "0"
+      }
+    ],
+    "a9d123bc-d86a-480e-b356-0cbc248c6058": [
+      {
+        "inst": 1,
+        "port": "1",
+        "mod": "2",
+        "ch": "1",
+        "name": "BI-1",
+        "desc": "Binary Input",
+        "thid": "",
+        "onTxt": "Alarm",
+        "offTxt": "OK",
+        "polarity": "0",
+        "nc": "1",
+        "e.detect": "1",
+        "almEnable": "1",
+        "almVal": "1",
+        "timedelay": "3",
+        "cov.en": "0",
+        "tlog.en": "0"
+      },
+      {
+        "inst": 11,
+        "port": "2",
+        "mod": "1",
+        "ch": "1",
+        "name": "Ext_BI-1",
+        "desc": "Binary Input",
+        "thid": "Input_Word_1",
+        "onTxt": "Alarm",
+        "offTxt": "OK",
+        "polarity": "0",
+        "nc": "1",
+        "e.detect": "1",
+        "almEnable": "1",
+        "almVal": "1",
+        "timedelay": "3",
+        "cov.en": "0",
+        "tlog.en": "0"
+      },
+      {
+        "inst": 12,
+        "port": "2",
+        "mod": "1",
+        "ch": "2",
+        "name": "Ext_BI-2",
+        "desc": "Binary Input",
+        "thid": "Input_Word_2",
+        "onTxt": "Alarm",
+        "offTxt": "OK",
+        "polarity": "0",
+        "nc": "1",
+        "e.detect": "1",
+        "almEnable": "1",
+        "almVal": "1",
+        "timedelay": "3",
+        "cov.en": "0",
+        "tlog.en": "0"
+      }
+    ],
+    "eadb5b2d-df62-4a7b-ad19-b52bd17989a8": [
+      {
+        "inst": 1,
+        "port": "1",
+        "mod": "2",
+        "ch": "1",
+        "name": "BO-1",
+        "desc": "Binary Output",
+        "thid": "",
+        "onTxt": "ON",
+        "offTxt": "OFF",
+        "polarity": "0",
+        "initVal": "0",
+        "outMode": "0",
+        "interval": "0",
+        "nc": "1",
+        "e.detect": "1",
+        "almEnable": "1",
+        "timedelay": "3",
+        "fbDevInst": "",
+        "fbObject": "BV-1",
+        "cov.en": "0",
+        "tlog.en": "0"
+      }
+    ],
+    "9f6972f9-324e-4307-b865-613dd64a41c3": [
+      {
+        "inst": 1,
+        "port": "0",
+        "mod": "0",
+        "ch": "1",
+        "name": "BV-1",
+        "desc": "Binary Value",
+        "thid": "",
+        "onTxt": "ON",
+        "offTxt": "OFF",
+        "initVal": "0",
+        "nc": "1",
+        "e.detect": "1",
+        "almEnable": "1",
+        "almVal": "1",
+        "timedelay": "3",
+        "cov.en": "0",
+        "tlog.en": "0"
+      }
+    ],
+    "cef8a974-72e0-4a18-b8d1-454c84a4444a": [
+      {
+        "inst": 1,
+        "port": "0",
+        "mod": "0",
+        "ch": "1",
+        "name": "MSV-1",
+        "desc": "Multi-state Value",
+        "thid": "",
+        "initVal": "2",
+        "nrState": "5",
+        "st1Txt": "Unoccupied",
+        "st2Txt": "Warmup",
+        "st3Txt": "Occupied",
+        "st4Txt": "Setback",
+        "st5Txt": "Cooling",
+        "st6Txt": "",
+        "st7Txt": "",
+        "st8Txt": "",
+        "st9Txt": "",
+        "st10Txt": "",
+        "nc": "1",
+        "e.detect": "1",
+        "almEnable": "1",
+        "timedelay": "3",
+        "almVals": "3,4",
+        "faultVals": "",
+        "cov.en": "0",
+        "tlog.en": "0"
+      }
+    ],
+    "9ed031dd-d9bf-4384-b6b5-9e1219620c13": [
+      {
+        "inst": 1,
+        "name": "Calendar_1",
+        "desc": "single Date",
+        "date1": "20261115",
+        "date2": "",
+        "date3": "",
+        "date4": "",
+        "date5": "",
+        "date-range1": "",
+        "date-range2": "",
+        "date-range3": "",
+        "date-range4": "",
+        "date-range5": "",
+        "weekNday1": "",
+        "weekNday2": "",
+        "weekNday3": "",
+        "weekNday4": "",
+        "weekNday5": ""
+      },
+      {
+        "inst": 2,
+        "name": "Calendar_2",
+        "desc": "single DateRange(No Wildcard)",
+        "date1": "",
+        "date2": "",
+        "date3": "",
+        "date4": "",
+        "date5": "",
+        "date-range1": "20260401-20260430",
+        "date-range2": "",
+        "date-range3": "",
+        "date-range4": "",
+        "date-range5": "",
+        "weekNday1": "",
+        "weekNday2": "",
+        "weekNday3": "",
+        "weekNday4": "",
+        "weekNday5": ""
+      },
+      {
+        "inst": 3,
+        "name": "Calendar_3",
+        "desc": "single WeekNDay",
+        "date1": "",
+        "date2": "",
+        "date3": "",
+        "date4": "",
+        "date5": "",
+        "date-range1": "",
+        "date-range2": "",
+        "date-range3": "",
+        "date-range4": "",
+        "date-range5": "",
+        "weekNday1": "11-6-6",
+        "weekNday2": "",
+        "weekNday3": "",
+        "weekNday4": "",
+        "weekNday5": ""
+      },
+      {
+        "inst": 4,
+        "name": "Calendar_4",
+        "desc": "single DateRange(Wildcard)",
+        "date1": "",
+        "date2": "",
+        "date3": "",
+        "date4": "",
+        "date5": "",
+        "date-range1": "20260413-FFFFFFFF",
+        "date-range2": "",
+        "date-range3": "",
+        "date-range4": "",
+        "date-range5": "",
+        "weekNday1": "",
+        "weekNday2": "",
+        "weekNday3": "",
+        "weekNday4": "",
+        "weekNday5": ""
+      }
+    ],
+    "27167cfb-66aa-4df2-b6dc-04b4677d6378": [
+      {
+        "inst": 1,
+        "name": "schedule_1",
+        "desc": "Only Weekly_Schedule for Binary Value",
+        "startDate": "20260318",
+        "endDate": "20260518",
+        "objType": "Binary",
+        "def-value": "0",
+        "object-list": "BV-1, 3000-BV-1",
+        "priority": "7",
+        "mon": "07:00=1,18:00=0",
+        "tue": "07:00=1,18:00=0",
+        "wed": "07:00=1,18:00=0",
+        "thu": "07:00=1,18:00=0",
+        "fri": "07:00=1,18:00=0",
+        "sat": "07:00=1,12:00=0",
+        "sun": "",
+        "ex1.period": "",
+        "ex1.tv": "",
+        "ex1.pri": "",
+        "ex2.period": "",
+        "ex2.tv": "",
+        "ex2.pri": "",
+        "ex3.period": "",
+        "ex3.tv": "",
+        "ex3.pri": "",
+        "ex4.period": "",
+        "ex4.tv": "",
+        "ex4.pri": "",
+        "ex5.period": "",
+        "ex5.tv": "",
+        "ex5.pri": "",
+        "ex6.period": "",
+        "ex6.tv": "",
+        "ex6.pri": "",
+        "ex7.period": "",
+        "ex7.tv": "",
+        "ex7.pri": "",
+        "ex8.period": "",
+        "ex8.tv": "",
+        "ex8.pri": "",
+        "ex9.period": "",
+        "ex9.tv": "",
+        "ex9.pri": "",
+        "ex10.period": "",
+        "ex10.tv": "",
+        "ex10.pri": ""
+      },
+      {
+        "inst": 2,
+        "name": "schedule_2",
+        "desc": "Only Weekly_Schedule for Analog Value",
+        "startDate": "20260719",
+        "endDate": "20260918",
+        "objType": "Analog",
+        "def-value": "20",
+        "object-list": "AV-2",
+        "priority": "7",
+        "mon": "07:00=30,18:00=40",
+        "tue": "07:00=31,18:00=41",
+        "wed": "07:00=32,18:00=42",
+        "thu": "07:00=33,18:00=43",
+        "fri": "07:00=34,18:00=44",
+        "sat": "07:00=35,12:00=45",
+        "sun": "",
+        "ex1.period": "",
+        "ex1.tv": "",
+        "ex1.pri": "",
+        "ex2.period": "",
+        "ex2.tv": "",
+        "ex2.pri": "",
+        "ex3.period": "",
+        "ex3.tv": "",
+        "ex3.pri": "",
+        "ex4.period": "",
+        "ex4.tv": "",
+        "ex4.pri": "",
+        "ex5.period": "",
+        "ex5.tv": "",
+        "ex5.pri": "",
+        "ex6.period": "",
+        "ex6.tv": "",
+        "ex6.pri": "",
+        "ex7.period": "",
+        "ex7.tv": "",
+        "ex7.pri": "",
+        "ex8.period": "",
+        "ex8.tv": "",
+        "ex8.pri": "",
+        "ex9.period": "",
+        "ex9.tv": "",
+        "ex9.pri": "",
+        "ex10.period": "",
+        "ex10.tv": "",
+        "ex10.pri": ""
+      },
+      {
+        "inst": 3,
+        "name": "schedule_3",
+        "desc": "Only Exception_Schedule for Analog Value",
+        "startDate": "20260219",
+        "endDate": "20261218",
+        "objType": "Analog",
+        "def-value": "30",
+        "object-list": "AV-3",
+        "priority": "7",
+        "mon": "",
+        "tue": "",
+        "wed": "",
+        "thu": "",
+        "fri": "",
+        "sat": "",
+        "sun": "",
+        "ex1.period": "1",
+        "ex1.tv": "07:00=36,12:00=46",
+        "ex1.pri": "1",
+        "ex2.period": "20260405",
+        "ex2.tv": "07:00=37,12:00=47",
+        "ex2.pri": "2",
+        "ex3.period": "20260301-20261218",
+        "ex3.tv": "07:00=38,12:00=48",
+        "ex3.pri": "3",
+        "ex4.period": "3-3-4",
+        "ex4.tv": "07:00=39,12:00=49",
+        "ex4.pri": "4",
+        "ex5.period": "",
+        "ex5.tv": "",
+        "ex5.pri": "",
+        "ex6.period": "",
+        "ex6.tv": "",
+        "ex6.pri": "",
+        "ex7.period": "",
+        "ex7.tv": "",
+        "ex7.pri": "",
+        "ex8.period": "",
+        "ex8.tv": "",
+        "ex8.pri": "",
+        "ex9.period": "",
+        "ex9.tv": "",
+        "ex9.pri": "",
+        "ex10.period": "",
+        "ex10.tv": "",
+        "ex10.pri": ""
+      },
+      {
+        "inst": 4,
+        "name": "schedule_4",
+        "desc": "Event Priority Test (Ex=9)",
+        "startDate": "20261101",
+        "endDate": "20261130",
+        "objType": "Analog",
+        "def-value": "5",
+        "object-list": "AV-4",
+        "priority": "7",
+        "mon": "",
+        "tue": "",
+        "wed": "",
+        "thu": "",
+        "fri": "",
+        "sat": "",
+        "sun": "",
+        "ex1.period": "20261125",
+        "ex1.tv": "07:05=10",
+        "ex1.pri": "5",
+        "ex2.period": "20261125",
+        "ex2.tv": "07:10=20, 07:55=NULL",
+        "ex2.pri": "4",
+        "ex3.period": "20261125",
+        "ex3.tv": "07:15=30, 07:50=NULL",
+        "ex3.pri": "3",
+        "ex4.period": "20261125",
+        "ex4.tv": "07:20=40, 07:55=NULL",
+        "ex4.pri": "2",
+        "ex5.period": "20261125",
+        "ex5.tv": "07:25=50, 07:50=NULL",
+        "ex5.pri": "1",
+        "ex6.period": "20261125",
+        "ex6.tv": "07:30=NULL",
+        "ex6.pri": "1",
+        "ex7.period": "20261125",
+        "ex7.tv": "07:35=NULL",
+        "ex7.pri": "2",
+        "ex8.period": "20261125",
+        "ex8.tv": "07:40=NULL",
+        "ex8.pri": "3",
+        "ex9.period": "20261125",
+        "ex9.tv": "07:45=NULL",
+        "ex9.pri": "4",
+        "ex10.period": "",
+        "ex10.tv": "",
+        "ex10.pri": ""
+      },
+      {
+        "inst": 5,
+        "name": "schedule_5",
+        "desc": "CalendarEntry Date Test (Ex=2)",
+        "startDate": "20261019",
+        "endDate": "20261118",
+        "objType": "Analog",
+        "def-value": "10",
+        "object-list": "AV-5",
+        "priority": "7",
+        "mon": "07:00=60,18:00=70",
+        "tue": "07:00=61,18:00=71",
+        "wed": "07:00=62,18:00=72",
+        "thu": "07:00=63,18:00=73",
+        "fri": "07:00=64,18:00=74",
+        "sat": "07:00=65,18:00=75",
+        "sun": "",
+        "ex1.period": "20261025",
+        "ex1.tv": "07:00=36,12:00=46",
+        "ex1.pri": "1",
+        "ex2.period": "20261025",
+        "ex2.tv": "07:00=37,12:00=47",
+        "ex2.pri": "2",
+        "ex3.period": "",
+        "ex3.tv": "",
+        "ex3.pri": "",
+        "ex4.period": "",
+        "ex4.tv": "",
+        "ex4.pri": "",
+        "ex5.period": "",
+        "ex5.tv": "",
+        "ex5.pri": "",
+        "ex6.period": "",
+        "ex6.tv": "",
+        "ex6.pri": "",
+        "ex7.period": "",
+        "ex7.tv": "",
+        "ex7.pri": "",
+        "ex8.period": "",
+        "ex8.tv": "",
+        "ex8.pri": "",
+        "ex9.period": "",
+        "ex9.tv": "",
+        "ex9.pri": "",
+        "ex10.period": "",
+        "ex10.tv": "",
+        "ex10.pri": ""
+      },
+      {
+        "inst": 6,
+        "name": "schedule_6",
+        "desc": "CalendarEntry DateRange Test (Ex=2)",
+        "startDate": "20261119",
+        "endDate": "20261218",
+        "objType": "Analog",
+        "def-value": "10",
+        "object-list": "AV-6",
+        "priority": "7",
+        "mon": "07:00=60,18:00=70",
+        "tue": "07:00=61,18:00=71",
+        "wed": "07:00=62,18:00=72",
+        "thu": "07:00=63,18:00=73",
+        "fri": "07:00=64,18:00=74",
+        "sat": "07:00=65,18:00=75",
+        "sun": "",
+        "ex1.period": "20261125-20261128",
+        "ex1.tv": "07:00=36,12:00=46",
+        "ex1.pri": "1",
+        "ex2.period": "20261125-20261130",
+        "ex2.tv": "07:00=37,12:00=47",
+        "ex2.pri": "2",
+        "ex3.period": "",
+        "ex3.tv": "",
+        "ex3.pri": "",
+        "ex4.period": "",
+        "ex4.tv": "",
+        "ex4.pri": "",
+        "ex5.period": "",
+        "ex5.tv": "",
+        "ex5.pri": "",
+        "ex6.period": "",
+        "ex6.tv": "",
+        "ex6.pri": "",
+        "ex7.period": "",
+        "ex7.tv": "",
+        "ex7.pri": "",
+        "ex8.period": "",
+        "ex8.tv": "",
+        "ex8.pri": "",
+        "ex9.period": "",
+        "ex9.tv": "",
+        "ex9.pri": "",
+        "ex10.period": "",
+        "ex10.tv": "",
+        "ex10.pri": ""
+      },
+      {
+        "inst": 7,
+        "name": "schedule_7",
+        "desc": "CalendarEntry WeekNDay Test (Ex=4)",
+        "startDate": "20261011",
+        "endDate": "20261225",
+        "objType": "Analog",
+        "def-value": "10",
+        "object-list": "AV-7",
+        "priority": "7",
+        "mon": "07:00=60,18:00=70",
+        "tue": "07:00=61,18:00=71",
+        "wed": "07:00=62,18:00=72",
+        "thu": "07:00=63,18:00=73",
+        "fri": "07:00=64,18:00=74",
+        "sat": "07:00=65,18:00=75",
+        "sun": "",
+        "ex1.period": "11-3-4",
+        "ex1.tv": "07:00=36,12:00=46",
+        "ex1.pri": "1",
+        "ex2.period": "11-6-5",
+        "ex2.tv": "07:00=37,12:00=47",
+        "ex2.pri": "2",
+        "ex3.period": "13-3-6",
+        "ex3.tv": "07:00=38,12:00=48",
+        "ex3.pri": "2",
+        "ex4.period": "14-3-6",
+        "ex4.tv": "07:00=39,12:00=49",
+        "ex4.pri": "2",
+        "ex5.period": "",
+        "ex5.tv": "",
+        "ex5.pri": "",
+        "ex6.period": "",
+        "ex6.tv": "",
+        "ex6.pri": "",
+        "ex7.period": "",
+        "ex7.tv": "",
+        "ex7.pri": "",
+        "ex8.period": "",
+        "ex8.tv": "",
+        "ex8.pri": "",
+        "ex9.period": "",
+        "ex9.tv": "",
+        "ex9.pri": "",
+        "ex10.period": "",
+        "ex10.tv": "",
+        "ex10.pri": ""
+      },
+      {
+        "inst": 8,
+        "name": "schedule_8",
+        "desc": "Lower Event Priority Change Test (Ex=2)",
+        "startDate": "20261011",
+        "endDate": "20261225",
+        "objType": "Analog",
+        "def-value": "10",
+        "object-list": "AV-8",
+        "priority": "7",
+        "mon": "",
+        "tue": "",
+        "wed": "",
+        "thu": "",
+        "fri": "",
+        "sat": "",
+        "sun": "",
+        "ex1.period": "20261117",
+        "ex1.tv": "07:20=20,07:30=30,07:50=NULL",
+        "ex1.pri": "1",
+        "ex2.period": "20261117",
+        "ex2.tv": "07:10=10,07:40=40",
+        "ex2.pri": "2",
+        "ex3.period": "",
+        "ex3.tv": "",
+        "ex3.pri": "",
+        "ex4.period": "",
+        "ex4.tv": "",
+        "ex4.pri": "",
+        "ex5.period": "",
+        "ex5.tv": "",
+        "ex5.pri": "",
+        "ex6.period": "",
+        "ex6.tv": "",
+        "ex6.pri": "",
+        "ex7.period": "",
+        "ex7.tv": "",
+        "ex7.pri": "",
+        "ex8.period": "",
+        "ex8.tv": "",
+        "ex8.pri": "",
+        "ex9.period": "",
+        "ex9.tv": "",
+        "ex9.pri": "",
+        "ex10.period": "",
+        "ex10.tv": "",
+        "ex10.pri": ""
+      },
+      {
+        "inst": 9,
+        "name": "schedule_9",
+        "desc": "Schedule Default Test (Ex=1)",
+        "startDate": "20261011",
+        "endDate": "20261225",
+        "objType": "Analog",
+        "def-value": "80",
+        "object-list": "AV-9",
+        "priority": "7",
+        "mon": "07:00=60,18:00=NULL",
+        "tue": "07:00=61,18:00=NULL",
+        "wed": "07:00=62,18:00=NULL",
+        "thu": "07:00=63,18:00=NULL",
+        "fri": "07:00=64,18:00=NULL",
+        "sat": "07:00=65,18:00=NULL",
+        "sun": "",
+        "ex1.period": "20261118",
+        "ex1.tv": "19:00=36,23:00=NULL",
+        "ex1.pri": "1",
+        "ex2.period": "",
+        "ex2.tv": "",
+        "ex2.pri": "",
+        "ex3.period": "",
+        "ex3.tv": "",
+        "ex3.pri": "",
+        "ex4.period": "",
+        "ex4.tv": "",
+        "ex4.pri": "",
+        "ex5.period": "",
+        "ex5.tv": "",
+        "ex5.pri": "",
+        "ex6.period": "",
+        "ex6.tv": "",
+        "ex6.pri": "",
+        "ex7.period": "",
+        "ex7.tv": "",
+        "ex7.pri": "",
+        "ex8.period": "",
+        "ex8.tv": "",
+        "ex8.pri": "",
+        "ex9.period": "",
+        "ex9.tv": "",
+        "ex9.pri": "",
+        "ex10.period": "",
+        "ex10.tv": "",
+        "ex10.pri": ""
+      },
+      {
+        "inst": 10,
+        "name": "schedule_10",
+        "desc": "Midnight Evaluation Test (Ex=1)",
+        "startDate": "20261011",
+        "endDate": "20261225",
+        "objType": "Analog",
+        "def-value": "50",
+        "object-list": "AV-10",
+        "priority": "7",
+        "mon": "23:59=60",
+        "tue": "23:59=61",
+        "wed": "23:59=62",
+        "thu": "23:59=63",
+        "fri": "23:59=64",
+        "sat": "23:59=65",
+        "sun": "",
+        "ex1.period": "20261118",
+        "ex1.tv": "02:00=36",
+        "ex1.pri": "1",
+        "ex2.period": "",
+        "ex2.tv": "",
+        "ex2.pri": "",
+        "ex3.period": "",
+        "ex3.tv": "",
+        "ex3.pri": "",
+        "ex4.period": "",
+        "ex4.tv": "",
+        "ex4.pri": "",
+        "ex5.period": "",
+        "ex5.tv": "",
+        "ex5.pri": "",
+        "ex6.period": "",
+        "ex6.tv": "",
+        "ex6.pri": "",
+        "ex7.period": "",
+        "ex7.tv": "",
+        "ex7.pri": "",
+        "ex8.period": "",
+        "ex8.tv": "",
+        "ex8.pri": "",
+        "ex9.period": "",
+        "ex9.tv": "",
+        "ex9.pri": "",
+        "ex10.period": "",
+        "ex10.tv": "",
+        "ex10.pri": ""
+      },
+      {
+        "inst": 11,
+        "name": "schedule_11",
+        "desc": "External Test - Real (No Ex)",
+        "startDate": "20260719",
+        "endDate": "20260918",
+        "objType": "Analog",
+        "def-value": "50",
+        "object-list": "AV-11, 3000-AV-11",
+        "priority": "8",
+        "mon": "07:00=60,18:00=NULL",
+        "tue": "07:00=61,18:00=NULL",
+        "wed": "07:00=62,18:00=NULL",
+        "thu": "07:00=63,18:00=NULL",
+        "fri": "07:00=64,18:00=NULL",
+        "sat": "07:00=65,18:00=NULL",
+        "sun": "",
+        "ex1.period": "",
+        "ex1.tv": "",
+        "ex1.pri": "",
+        "ex2.period": "",
+        "ex2.tv": "",
+        "ex2.pri": "",
+        "ex3.period": "",
+        "ex3.tv": "",
+        "ex3.pri": "",
+        "ex4.period": "",
+        "ex4.tv": "",
+        "ex4.pri": "",
+        "ex5.period": "",
+        "ex5.tv": "",
+        "ex5.pri": "",
+        "ex6.period": "",
+        "ex6.tv": "",
+        "ex6.pri": "",
+        "ex7.period": "",
+        "ex7.tv": "",
+        "ex7.pri": "",
+        "ex8.period": "",
+        "ex8.tv": "",
+        "ex8.pri": "",
+        "ex9.period": "",
+        "ex9.tv": "",
+        "ex9.pri": "",
+        "ex10.period": "",
+        "ex10.tv": "",
+        "ex10.pri": ""
+      },
+      {
+        "inst": 12,
+        "name": "schedule_12",
+        "desc": "External Test - Unsigned (No Ex)",
+        "startDate": "20260719",
+        "endDate": "20260918",
+        "objType": "MSV",
+        "def-value": "3",
+        "object-list": "MSV-1, 3000-MSV-1",
+        "priority": "8",
+        "mon": "07:00=1,18:00=2",
+        "tue": "07:00=2,18:00=3",
+        "wed": "07:00=3,18:00=4",
+        "thu": "07:00=4,18:00=5",
+        "fri": "07:00=5,18:00=1",
+        "sat": "07:00=1,18:00=2",
+        "sun": "",
+        "ex1.period": "",
+        "ex1.tv": "",
+        "ex1.pri": "",
+        "ex2.period": "",
+        "ex2.tv": "",
+        "ex2.pri": "",
+        "ex3.period": "",
+        "ex3.tv": "",
+        "ex3.pri": "",
+        "ex4.period": "",
+        "ex4.tv": "",
+        "ex4.pri": "",
+        "ex5.period": "",
+        "ex5.tv": "",
+        "ex5.pri": "",
+        "ex6.period": "",
+        "ex6.tv": "",
+        "ex6.pri": "",
+        "ex7.period": "",
+        "ex7.tv": "",
+        "ex7.pri": "",
+        "ex8.period": "",
+        "ex8.tv": "",
+        "ex8.pri": "",
+        "ex9.period": "",
+        "ex9.tv": "",
+        "ex9.pri": "",
+        "ex10.period": "",
+        "ex10.tv": "",
+        "ex10.pri": ""
+      }
+    ],
+    "6852de8e-3666-424a-9e9b-26527e2e51d6": [
+      {
+        "id": "d27a447b-d1c0-4b8a-8e11-f7e06f96e1e9",
+        "inst": 1,
+        "name": "NOTF-1",
+        "desc": "Default Notification Class",
+        "priority_off": 3,
+        "priority_fault": 10,
+        "priority_norm": 15,
+        "ack_off": true,
+        "ack_fault": true,
+        "ack_norm": true,
+        "d1_mon": true,
+        "d1_tue": true,
+        "d1_wed": true,
+        "d1_thu": true,
+        "d1_fri": true,
+        "d1_sat": false,
+        "d1_sun": false,
+        "d1_time_start": "00:00:00",
+        "d1_time_end": "23:59:59",
+        "d1_recipient": "30001",
+        "d1_proc_id": 21,
+        "d1_confirmed": true,
+        "d1_trans_off": true,
+        "d1_trans_fault": true,
+        "d1_trans_norm": true,
+        "d2_mon": true,
+        "d2_tue": true,
+        "d2_wed": true,
+        "d2_thu": true,
+        "d2_fri": true,
+        "d2_sat": true,
+        "d2_sun": true,
+        "d2_time_start": "00:00:00",
+        "d2_time_end": "23:59:59",
+        "d2_recipient": "65535/0",
+        "d2_proc_id": 6,
+        "d2_confirmed": false,
+        "d2_trans_off": true,
+        "d2_trans_fault": true,
+        "d2_trans_norm": true
+      },
+      {
+        "id": "72a0649b-66da-46ed-a84c-e9a875edba5c",
+        "inst": 2,
+        "name": "NOTF-2",
+        "desc": "Notification Class",
+        "priority_off": 3,
+        "priority_fault": 10,
+        "priority_norm": 15,
+        "ack_off": true,
+        "ack_fault": true,
+        "ack_norm": true,
+        "d1_mon": true,
+        "d1_tue": true,
+        "d1_wed": true,
+        "d1_thu": true,
+        "d1_fri": true,
+        "d1_sat": false,
+        "d1_sun": false,
+        "d1_time_start": "06:00:00",
+        "d1_time_end": "20:00:00",
+        "d1_recipient": "30002",
+        "d1_proc_id": 21,
+        "d1_confirmed": true,
+        "d1_trans_off": true,
+        "d1_trans_fault": true,
+        "d1_trans_norm": true,
+        "d2_mon": false,
+        "d2_tue": false,
+        "d2_wed": false,
+        "d2_thu": false,
+        "d2_fri": false,
+        "d2_sat": false,
+        "d2_sun": false,
+        "d2_confirmed": false,
+        "d2_trans_off": false,
+        "d2_trans_fault": false,
+        "d2_trans_norm": false
+      },
+      {
+        "id": "e6dbc71f-1dca-4474-b909-c6890a966d12",
+        "inst": 3,
+        "name": "NOTF-3",
+        "desc": "Notification Class",
+        "priority_off": 3,
+        "priority_fault": 10,
+        "priority_norm": 15,
+        "ack_off": true,
+        "ack_fault": true,
+        "ack_norm": true,
+        "d1_mon": true,
+        "d1_tue": true,
+        "d1_wed": true,
+        "d1_thu": true,
+        "d1_fri": true,
+        "d1_sat": false,
+        "d1_sun": false,
+        "d1_time_start": "00:00:00",
+        "d1_time_end": "23:59:59",
+        "d1_recipient": "30003",
+        "d1_proc_id": 21,
+        "d1_confirmed": false,
+        "d1_trans_off": true,
+        "d1_trans_fault": true,
+        "d1_trans_norm": true,
+        "d2_mon": false,
+        "d2_tue": false,
+        "d2_wed": false,
+        "d2_thu": false,
+        "d2_fri": false,
+        "d2_sat": false,
+        "d2_sun": false,
+        "d2_confirmed": false,
+        "d2_trans_off": false,
+        "d2_trans_fault": false,
+        "d2_trans_norm": false
+      }
+    ],
+    "de02b8f8-0f1f-4cb9-a511-7e73fc84b055": [
+      {
+        "inst": 1,
+        "name": "trend_log_1",
+        "desc": "Trend-Log Test",
+        "startDate": "20260101",
+        "startTime": "0:00",
+        "endDate": "20261231",
+        "endTime": "23:59",
+        "enable": "1",
+        "logDevInst": "",
+        "logObject": "AV-1",
+        "logInterval": "2",
+        "stopWhenFull": "1",
+        "nc": "1",
+        "e.detect": "0",
+        "almEnable": "1",
+        "threshold": "10"
+      },
+      {
+        "inst": 3,
+        "name": "trend_log_3",
+        "desc": "Internal Object Data Type - Real",
+        "startDate": "20260101",
+        "startTime": "0:00",
+        "endDate": "20261231",
+        "endTime": "23:59",
+        "enable": "1",
+        "logDevInst": "",
+        "logObject": "AV-1",
+        "logInterval": "2",
+        "stopWhenFull": "0",
+        "nc": "1",
+        "e.detect": "0",
+        "almEnable": "1",
+        "threshold": "10"
+      },
+      {
+        "inst": 4,
+        "name": "trend_log_4",
+        "desc": "Internal Object Data Type - Unsigend",
+        "startDate": "20260101",
+        "startTime": "0:00",
+        "endDate": "20261231",
+        "endTime": "23:59",
+        "enable": "1",
+        "logDevInst": "",
+        "logObject": "MSV-1",
+        "logInterval": "2",
+        "stopWhenFull": "0",
+        "nc": "1",
+        "e.detect": "0",
+        "almEnable": "1",
+        "threshold": "10"
+      },
+      {
+        "inst": 5,
+        "name": "trend_log_5",
+        "desc": "Internal Object Data Type - Enum",
+        "startDate": "20260101",
+        "startTime": "0:00",
+        "endDate": "20261231",
+        "endTime": "23:59",
+        "enable": "1",
+        "logDevInst": "",
+        "logObject": "BV-1",
+        "logInterval": "2",
+        "stopWhenFull": "0",
+        "nc": "1",
+        "e.detect": "0",
+        "almEnable": "1",
+        "threshold": "10"
+      }
+    ],
+    "fed5e2ef-5d91-42fe-adc1-187ee74ac457": [
+      {
+        "inst": 1,
+        "name": "TOT-1",
+        "desc": "DESC-1",
+        "units": "95",
+        "Ref_DevInst": "",
+        "Ref_Object": "AV-1",
+        "nc": "1",
+        "e.detect": "1",
+        "almEnable": "1",
+        "almHL": "90",
+        "gain": "1",
+        "totOpt": "1",
+        "reset_choice": "1",
+        "reset-date": "1015",
+        "reset-time": "10:30"
+      },
+      {
+        "inst": 2,
+        "name": "TOT-2",
+        "desc": "DESC-2",
+        "units": "95",
+        "Ref_DevInst": "",
+        "Ref_Object": "AV-2",
+        "nc": "1",
+        "e.detect": "1",
+        "almEnable": "1",
+        "almHL": "90",
+        "gain": "1",
+        "totOpt": "1",
+        "reset_choice": "2",
+        "reset-date": "2",
+        "reset-time": "10:31"
+      },
+      {
+        "inst": 3,
+        "name": "TOT-3",
+        "desc": "DESC-3",
+        "units": "95",
+        "Ref_DevInst": "",
+        "Ref_Object": "AV-3",
+        "nc": "1",
+        "e.detect": "1",
+        "almEnable": "1",
+        "almHL": "90",
+        "gain": "1",
+        "totOpt": "1",
+        "reset_choice": "3",
+        "reset-date": "7",
+        "reset-time": "10:32"
+      },
+      {
+        "inst": 4,
+        "name": "TOT-4",
+        "desc": "DESC-4",
+        "units": "95",
+        "Ref_DevInst": "",
+        "Ref_Object": "AV-4",
+        "nc": "1",
+        "e.detect": "1",
+        "almEnable": "1",
+        "almHL": "90",
+        "gain": "1",
+        "totOpt": "1",
+        "reset_choice": "4",
+        "reset-date": "",
+        "reset-time": "10:33"
+      },
+      {
+        "inst": 5,
+        "name": "TOT-5",
+        "desc": "DESC-5",
+        "units": "95",
+        "Ref_DevInst": "",
+        "Ref_Object": "AV-5",
+        "nc": "1",
+        "e.detect": "1",
+        "almEnable": "1",
+        "almHL": "90",
+        "gain": "1",
+        "totOpt": "1",
+        "reset_choice": "1",
+        "reset-date": "1015",
+        "reset-time": "10:34"
+      },
+      {
+        "inst": 6,
+        "name": "TOT-6",
+        "desc": "DESC-6",
+        "units": "95",
+        "Ref_DevInst": "",
+        "Ref_Object": "AV-6",
+        "nc": "1",
+        "e.detect": "1",
+        "almEnable": "1",
+        "almHL": "90",
+        "gain": "1",
+        "totOpt": "1",
+        "reset_choice": "2",
+        "reset-date": "2",
+        "reset-time": "10:35"
+      },
+      {
+        "inst": 7,
+        "name": "TOT-7",
+        "desc": "DESC-7",
+        "units": "95",
+        "Ref_DevInst": "",
+        "Ref_Object": "AV-7",
+        "nc": "1",
+        "e.detect": "1",
+        "almEnable": "1",
+        "almHL": "90",
+        "gain": "1",
+        "totOpt": "1",
+        "reset_choice": "3",
+        "reset-date": "7",
+        "reset-time": "10:36"
+      },
+      {
+        "inst": 8,
+        "name": "TOT-8",
+        "desc": "DESC-8",
+        "units": "95",
+        "Ref_DevInst": "",
+        "Ref_Object": "AV-8",
+        "nc": "1",
+        "e.detect": "1",
+        "almEnable": "1",
+        "almHL": "90",
+        "gain": "1",
+        "totOpt": "1",
+        "reset_choice": "4",
+        "reset-date": "",
+        "reset-time": "10:37"
+      },
+      {
+        "inst": 9,
+        "name": "TOT-9",
+        "desc": "DESC-9",
+        "units": "95",
+        "Ref_DevInst": "",
+        "Ref_Object": "AV-9",
+        "nc": "1",
+        "e.detect": "1",
+        "almEnable": "1",
+        "almHL": "90",
+        "gain": "1",
+        "totOpt": "1",
+        "reset_choice": "4",
+        "reset-date": "1015",
+        "reset-time": "10:38"
+      },
+      {
+        "inst": 10,
+        "name": "TOT-10",
+        "desc": "DESC-10",
+        "units": "95",
+        "Ref_DevInst": "",
+        "Ref_Object": "AV-10",
+        "nc": "1",
+        "e.detect": "1",
+        "almEnable": "1",
+        "almHL": "90",
+        "gain": "1",
+        "totOpt": "1",
+        "reset_choice": "4",
+        "reset-date": "1015",
+        "reset-time": "10:39"
+      },
+      {
+        "inst": 11,
+        "name": "TOT-11",
+        "desc": "DESC-11",
+        "units": "95",
+        "Ref_DevInst": "",
+        "Ref_Object": "BV-1",
+        "nc": "1",
+        "e.detect": "1",
+        "almEnable": "1",
+        "almHL": "90",
+        "gain": "3600",
+        "totOpt": "3",
+        "reset_choice": "1",
+        "reset-date": "1015",
+        "reset-time": "10:30"
+      },
+      {
+        "inst": 12,
+        "name": "TOT-12",
+        "desc": "DESC-12",
+        "units": "95",
+        "Ref_DevInst": "",
+        "Ref_Object": "BV-2",
+        "nc": "1",
+        "e.detect": "1",
+        "almEnable": "1",
+        "almHL": "90",
+        "gain": "3600",
+        "totOpt": "4",
+        "reset_choice": "1",
+        "reset-date": "1015",
+        "reset-time": "10:30"
+      },
+      {
+        "inst": 13,
+        "name": "TOT-13",
+        "desc": "DESC-13",
+        "units": "95",
+        "Ref_DevInst": "",
+        "Ref_Object": "BV-3",
+        "nc": "1",
+        "e.detect": "1",
+        "almEnable": "1",
+        "almHL": "90",
+        "gain": "1",
+        "totOpt": "5",
+        "reset_choice": "1",
+        "reset-date": "1015",
+        "reset-time": "10:30"
+      },
+      {
+        "inst": 14,
+        "name": "TOT-14",
+        "desc": "DESC-14",
+        "units": "95",
+        "Ref_DevInst": "",
+        "Ref_Object": "BV-4",
+        "nc": "1",
+        "e.detect": "1",
+        "almEnable": "1",
+        "almHL": "90",
+        "gain": "1",
+        "totOpt": "6",
+        "reset_choice": "1",
+        "reset-date": "1015",
+        "reset-time": "10:30"
+      }
+    ],
+    "421b51de-7d16-4a24-bc5a-f85d10786795": [
+      {
+        "inst": 1,
+        "name": "CGC-1",
+        "desc": "cgc-analog",
+        "OP": "and",
+        "cond1": "AV-1,LE,7",
+        "cond2": "AV-2,GE,11",
+        "pri_for_wr": "7",
+        "action1": "AV-11,11",
+        "action2": "AV-12,12",
+        "action3": "BV-1,1",
+        "action4": ""
+      },
+      {
+        "inst": 2,
+        "name": "CGC-2",
+        "desc": "cgc-analog",
+        "OP": "and",
+        "cond1": "AV-3,GE,7",
+        "cond2": "",
+        "pri_for_wr": "",
+        "action1": "",
+        "action2": "3",
+        "action3": "100-AV-1,1",
+        "action4": "BV-2,1"
+      },
+      {
+        "inst": 3,
+        "name": "CGC-3",
+        "desc": "cgc-binary",
+        "OP": "and",
+        "cond1": "BV-1,EQ,7",
+        "cond2": "BV-2,EQ,1",
+        "pri_for_wr": "3",
+        "action1": "BV-11,1",
+        "action2": "BV-12,1",
+        "action3": "",
+        "action4": ""
+      },
+      {
+        "inst": 4,
+        "name": "CGC-4",
+        "desc": "cgc-binary",
+        "OP": "and",
+        "cond1": "BV-3,EQ,BV-4",
+        "cond2": "BV-5,EQ,1",
+        "pri_for_wr": "3",
+        "action1": "BV-11,1",
+        "action2": "BV-12,1",
+        "action3": "",
+        "action4": ""
+      }
+    ],
+    "538ed457-7fc4-486f-971f-937c549e9208": [
+      {
+        "inst": 1,
+        "name": "EGC-1",
+        "desc": "analog",
+        "Master_Obj": "AV-1",
+        "pri-for-wr": "7",
+        "slave-object-list": "AV-11,AV-12,AV-13"
+      },
+      {
+        "inst": 2,
+        "name": "EGC-2",
+        "desc": "binary",
+        "Master_Obj": "BV-1",
+        "pri-for-wr": "3",
+        "slave-object-list": "BV-11,BV-12,BV-13"
+      },
+      {
+        "inst": 3,
+        "name": "EGC-3",
+        "desc": "msv",
+        "Master_Obj": "MSV-1",
+        "pri-for-wr": "5",
+        "slave-object-list": "MSV-11,MSV-12,MSV-13"
+      }
+    ]
+  }
+}
