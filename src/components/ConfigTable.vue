@@ -86,7 +86,7 @@
               <InputNumber v-model="data[field]" :useGrouping="false" style="width: 100%; max-width: 100%; min-width: 0;" :inputStyle="{ padding: '0.3rem 0.4rem', width: '100%', minWidth: '0', boxSizing: 'border-box' }" @keydown="handleKeydown($event, field)" />
             </template>
             <template v-else-if="field.toLowerCase().includes('time')">
-              <InputMask v-model="data[field]" mask="99:99" placeholder="HH:MM" style="width: 100%; max-width: 100%; min-width: 0; padding: 0.3rem 0.4rem; box-sizing: border-box;" @keydown="handleKeydown($event, field)" />
+              <InputMask v-model="data[field]" mask="99:99:99" placeholder="HH:MM:SS" style="width: 100%; max-width: 100%; min-width: 0; padding: 0.3rem 0.4rem; box-sizing: border-box;" @keydown="handleKeydown($event, field)" />
             </template>
             <template v-else-if="field === 'almEnable'">
               <InputText v-model="data[field]" style="width: 50%; max-width: 50%; min-width: 0; padding: 0.3rem 0.4rem; box-sizing: border-box;" @keydown="handleKeydown($event, field)" />
@@ -385,7 +385,7 @@ const getColumnStyle = (field) => {
   // Specific sizing for temporal types
   if (field === 'startDate' || field === 'endDate') return 'width: 140px; min-width: 140px; max-width: 140px; overflow: hidden;';
   if (field.toLowerCase().includes('date')) return 'width: 105px; min-width: 105px; max-width: 105px; overflow: hidden;';
-  if (field.toLowerCase().includes('time')) return 'width: 100px; min-width: 100px; max-width: 100px; overflow: hidden;';
+  if (field.toLowerCase().includes('time')) return 'width: 110px; min-width: 110px; max-width: 110px; overflow: hidden;';
 
   // For all other types, squeeze tight matching the header title width
   const calcWidth = Math.max(55, field.length * 8.5 + 32); 
@@ -763,30 +763,37 @@ const parseDeviceTextFormat = (text) => {
 
 const getNcTextContent = (r) => {
   if (!r) return ''
+  if (r.inst === undefined || r.inst === null || r.inst === '' || r.name === undefined || r.name === null || r.name === '') return ''
+
   let output = '#Notf object config\n'
   output += `NAME=${r.name || ''}\n`
   output += `DESC=${r.desc || ''}\n`
   output += `PRI=${r.priority_off || 0},${r.priority_fault || 0},${r.priority_norm || 0}\n`
   output += `ACK_REQ=${r.ack_off ? 1 : 0},${r.ack_fault ? 1 : 0},${r.ack_norm ? 1 : 0}\n\n`
   
-  output += `#Valid Days: from monday, 1 or 0\n`
-  output += `1_VALID_DAYS=${r.d1_mon?1:0},${r.d1_tue?1:0},${r.d1_wed?1:0},${r.d1_thu?1:0},${r.d1_fri?1:0},${r.d1_sat?1:0},${r.d1_sun?1:0}\n`
-  output += `1_FROM_TIME=${r.d1_time_start || '00:00:00'}\n`
-  output += `1_TO_TIME=${r.d1_time_end || '23:59:59'}\n`
-  output += `# devid or net/mac\n`
-  output += `1_RECIPIENT=${r.d1_recipient || ''}\n`
-  output += `1_PROC_ID=${r.d1_proc_id || 0}\n`
-  output += `1_CONF=${r.d1_confirmed ? 1 : 0}\n`
-  output += `1_TRANS=${r.d1_trans_off?1:0},${r.d1_trans_fault?1:0},${r.d1_trans_norm?1:0}\n\n`
+  if (r.d1_recipient && r.d1_recipient.trim() !== '') {
+    output += `#Valid Days: from monday, 1 or 0\n`
+    output += `1_VALID_DAYS=${r.d1_mon?1:0},${r.d1_tue?1:0},${r.d1_wed?1:0},${r.d1_thu?1:0},${r.d1_fri?1:0},${r.d1_sat?1:0},${r.d1_sun?1:0}\n`
+    output += `1_FROM_TIME=${r.d1_time_start || '00:00:00'}\n`
+    output += `1_TO_TIME=${r.d1_time_end || '23:59:59'}\n`
+    output += `# devid or net/mac\n`
+    output += `1_RECIPIENT=${r.d1_recipient || ''}\n`
+    output += `1_PROC_ID=${r.d1_proc_id || 0}\n`
+    output += `1_CONF=${r.d1_confirmed ? 1 : 0}\n`
+    output += `1_TRANS=${r.d1_trans_off?1:0},${r.d1_trans_fault?1:0},${r.d1_trans_norm?1:0}\n\n`
+  }
   
-  output += `# 2nd Destination\n`
-  output += `2_VALID_DAYS=${r.d2_mon?1:0},${r.d2_tue?1:0},${r.d2_wed?1:0},${r.d2_thu?1:0},${r.d2_fri?1:0},${r.d2_sat?1:0},${r.d2_sun?1:0}\n`
-  output += `2_FROM_TIME=${r.d2_time_start || '00:00:00'}\n`
-  output += `2_TO_TIME=${r.d2_time_end || '23:59:59'}\n`
-  output += `2_RECIPIENT=${r.d2_recipient || ''}\n`
-  output += `2_PROC_ID=${r.d2_proc_id || 0}\n`
-  output += `2_CONF=${r.d2_confirmed ? 1 : 0}\n`
-  output += `2_TRANS=${r.d2_trans_off?1:0},${r.d2_trans_fault?1:0},${r.d2_trans_norm?1:0}\n`
+  if (r.d2_recipient && r.d2_recipient.trim() !== '') {
+    output += `# 2nd Destination\n`
+    output += `2_VALID_DAYS=${r.d2_mon?1:0},${r.d2_tue?1:0},${r.d2_wed?1:0},${r.d2_thu?1:0},${r.d2_fri?1:0},${r.d2_sat?1:0},${r.d2_sun?1:0}\n`
+    output += `2_FROM_TIME=${r.d2_time_start || '00:00:00'}\n`
+    output += `2_TO_TIME=${r.d2_time_end || '23:59:59'}\n`
+    output += `2_RECIPIENT=${r.d2_recipient || ''}\n`
+    output += `2_PROC_ID=${r.d2_proc_id || 0}\n`
+    output += `2_CONF=${r.d2_confirmed ? 1 : 0}\n`
+    output += `2_TRANS=${r.d2_trans_off?1:0},${r.d2_trans_fault?1:0},${r.d2_trans_norm?1:0}\n`
+  }
+  
   return output.trim()
 }
 
@@ -1083,6 +1090,12 @@ const formatNodeData = (node) => {
     
     let output = `#${cols.join(',')}\n`;
     data.forEach(row => {
+      // Exclude row if inst or name is empty
+      if (row.inst === undefined || row.inst === null || row.inst === '' || 
+          row.name === undefined || row.name === null || row.name === '') {
+        return;
+      }
+
       const instVal = row[cols[0]] !== undefined ? row[cols[0]] : '';
       
       const restVals = cols.slice(1).map(col => {
