@@ -180,7 +180,7 @@
           <Column header="Value">
             <template #body="{ data }">
               <InputNumber v-if="calContextType === 'date'" v-model="data.val" :useGrouping="false" placeholder="YYYYMMDD" style="width: 100%;" :inputStyle="{ width: '100%', boxSizing: 'border-box' }" />
-              <InputText v-else v-model="data.val" style="width: 100%; box-sizing: border-box;" />
+              <InputText v-else v-model="data.val" :placeholder="calContextType === 'weekNday' ? 'M-W-Dow' : ''" style="width: 100%; box-sizing: border-box;" />
             </template>
           </Column>
         </DataTable>
